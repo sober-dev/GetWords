@@ -1,5 +1,5 @@
 
-package ua.com.sober.getwords.mvp.models;
+package ua.com.sober.getwords.mvp.models.ocr;
 
 import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;

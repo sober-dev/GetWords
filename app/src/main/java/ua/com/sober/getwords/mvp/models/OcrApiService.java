@@ -7,6 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import ua.com.sober.getwords.mvp.models.ocr.OcrApiResults;
 
 /**
  * Created by dmitry on 5/17/16.

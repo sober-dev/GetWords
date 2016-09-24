@@ -1,5 +1,5 @@
 
-package ua.com.sober.getwords.mvp.models;
+package ua.com.sober.getwords.mvp.models.ocr;
 
 import java.util.ArrayList;
 import java.util.List;

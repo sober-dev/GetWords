@@ -31,7 +31,7 @@ dependencies {
     compile 'com.hannesdorfmann.mosby:viewstate:2.0.1'
 
 //    REST API
-    compile 'com.squareup.retrofit2:retrofit:2.0.2'
-    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'org.glassfish:javax.annotation:10.0-b28'
 }

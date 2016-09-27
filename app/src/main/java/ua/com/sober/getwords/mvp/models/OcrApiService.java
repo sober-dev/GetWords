@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
-import ua.com.sober.getwords.mvp.models.ocr.OcrApiResults;
+import ua.com.sober.getwords.mvp.models.ocr.OcrApiResponse;
 
 /**
  * Created by dmitry on 5/17/16.
@@ -15,10 +15,10 @@ import ua.com.sober.getwords.mvp.models.ocr.OcrApiResults;
 public interface OcrApiService {
     @Multipart
     @POST("parse/image")
-    Call<OcrApiResults> parseImage(@Part("apikey") String apikey,
-                                   @Part("language") String language,
-                                   @Part("isOverlayRequired") String isOverlayRequired,
-                                   @Part("file") RequestBody file);
+    Call<OcrApiResponse> parseImage(@Part("apikey") String apikey,
+                                    @Part("language") String language,
+                                    @Part("isOverlayRequired") String isOverlayRequired,
+                                    @Part("file") RequestBody file);
 
     class Factory {
         public static OcrApiService create() {

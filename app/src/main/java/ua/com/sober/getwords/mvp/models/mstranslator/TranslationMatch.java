@@ -1,74 +1,70 @@
 package ua.com.sober.getwords.mvp.models.mstranslator;
 
+import org.simpleframework.xml.Element;
+
 /**
  * Created by dmitry on 9/27/16.
  */
 
-public class TranslationMatch
-{
-    private String Count;
+public class TranslationMatch {
 
-    private String MatchDegree;
+    @Element(name = "Count", required = false)
+    private int count;
 
-    private String Rating;
+    @Element(name = "MatchDegree", required = false)
+    private int matchDegree;
 
-    private String MatchedOriginalText;
+    @Element(name = "MatchedOriginalText", required = false)
+    private String matchedOriginalText;
 
-    private String TranslatedText;
+    @Element(name = "Rating", required = false)
+    private int rating;
 
-    public String getCount ()
-    {
-        return Count;
+    @Element(name = "TranslatedText", required = false)
+    private String translatedText;
+
+    public int getCount() {
+        return this.count;
     }
 
-    public void setCount (String Count)
-    {
-        this.Count = Count;
+    public void setCount(int _value) {
+        this.count = _value;
     }
 
-    public String getMatchDegree ()
-    {
-        return MatchDegree;
+    public int getMatchDegree() {
+        return this.matchDegree;
     }
 
-    public void setMatchDegree (String MatchDegree)
-    {
-        this.MatchDegree = MatchDegree;
+    public void setMatchDegree(int _value) {
+        this.matchDegree = _value;
     }
 
-    public String getRating ()
-    {
-        return Rating;
+    public String getMatchedOriginalText() {
+        return this.matchedOriginalText;
     }
 
-    public void setRating (String Rating)
-    {
-        this.Rating = Rating;
+    public void setMatchedOriginalText(String _value) {
+        this.matchedOriginalText = _value;
     }
 
-    public String getMatchedOriginalText ()
-    {
-        return MatchedOriginalText;
+    public int getRating() {
+        return this.rating;
     }
 
-    public void setMatchedOriginalText (String MatchedOriginalText)
-    {
-        this.MatchedOriginalText = MatchedOriginalText;
+    public void setRating(int _value) {
+        this.rating = _value;
     }
 
-    public String getTranslatedText ()
-    {
-        return TranslatedText;
+    public String getTranslatedText() {
+        return this.translatedText;
     }
 
-    public void setTranslatedText (String TranslatedText)
-    {
-        this.TranslatedText = TranslatedText;
+    public void setTranslatedText(String _value) {
+        this.translatedText = _value;
     }
 
     @Override
-    public String toString()
-    {
-        return "ClassPojo [Count = "+Count+", MatchDegree = "+MatchDegree+", Rating = "+Rating+", MatchedOriginalText = "+MatchedOriginalText+", TranslatedText = "+TranslatedText+"]";
+    public String toString() {
+        return "ClassPojo [Count = " + count + ", MatchDegree = " + matchDegree + ", Rating = " + rating + ", MatchedOriginalText = " + matchedOriginalText + ", TranslatedText = " + translatedText + "]";
     }
 }

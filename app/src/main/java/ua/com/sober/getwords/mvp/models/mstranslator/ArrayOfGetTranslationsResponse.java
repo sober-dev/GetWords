@@ -1,38 +1,30 @@
 package ua.com.sober.getwords.mvp.models.mstranslator;
 
+import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.Root;
+
+import java.util.List;
+
 /**
  * Created by dmitry on 9/27/16.
  */
 
-public class ArrayOfGetTranslationsResponse
-{
-    private GetTranslationsResponse GetTranslationsResponse;
+@Root(name = "ArrayOfGetTranslationsResponse", strict = false)
+public class ArrayOfGetTranslationsResponse {
 
-    private String xmlns;
+    @ElementList(name = "GetTranslationsResponse", inline = true, required = false)
+    private List<GetTranslationsResponse> getTranslationsResponse;
 
-    public GetTranslationsResponse getGetTranslationsResponse ()
-    {
-        return GetTranslationsResponse;
+    public List<GetTranslationsResponse> getGetTranslationsResponse() {
+        return this.getTranslationsResponse;
     }
 
-    public void setGetTranslationsResponse (GetTranslationsResponse GetTranslationsResponse)
-    {
-        this.GetTranslationsResponse = GetTranslationsResponse;
-    }
-
-    public String getXmlns ()
-    {
-        return xmlns;
-    }
-
-    public void setXmlns (String xmlns)
-    {
-        this.xmlns = xmlns;
+    public void setGetTranslationsResponse(List<GetTranslationsResponse> _value) {
+        this.getTranslationsResponse = _value;
     }
 
     @Override
-    public String toString()
-    {
-        return "ClassPojo [GetTranslationsResponse = "+GetTranslationsResponse+", xmlns = "+xmlns+"]";
+    public String toString() {
+        return "ClassPojo [GetTranslationsResponse = " + getTranslationsResponse + "]";
     }
 }

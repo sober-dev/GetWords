@@ -171,17 +171,21 @@ public class GetTranslationsArrayRequest {
 
     }
 
-    @Root(name="string")
+    @Root(name = "string")
     @Namespace(reference = "http://schemas.microsoft.com/2003/10/Serialization/Arrays")
     public static class StringWithNamespace {
+
         @Text
         private String string = null;
+
         public StringWithNamespace(String string) {
             this.string = string;
         }
+
         public String getString() {
             return string;
         }
+
         public void setString(String string) {
             this.string = string;
         }

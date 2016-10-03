@@ -5,6 +5,13 @@ import org.simpleframework.xml.convert.AnnotationStrategy;
 import org.simpleframework.xml.core.Persister;
 import org.simpleframework.xml.strategy.Strategy;
 
+import java.io.IOException;
+
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
@@ -24,8 +31,30 @@ public interface MicrosoftTranslatorApiService {
             Strategy strategy = new AnnotationStrategy();
             Serializer serializer = new Persister(strategy);
 
+            OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+
+            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+            httpClient
+                    .addInterceptor(loggingInterceptor)
+                    .addInterceptor(new Interceptor() {
+                        @Override
+                        public Response intercept(Interceptor.Chain chain) throws IOException {
+                            Request original = chain.request();
+
+                            Request.Builder requestBuilder = original.newBuilder()
+                                    .header("Authorization", "auth-value");
+                            Request request = requestBuilder.build();
+                            return chain.proceed(request);
+                        }
+                    });
+
+            OkHttpClient client = httpClient.build();
+
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl("http://api.microsofttranslator.com/V2/Http.svc/")
+                    .client(client)
                     .addConverterFactory(SimpleXmlConverterFactory.create())
                     .addConverterFactory(SimpleXmlConverterFactory.create(serializer))
                     .build();

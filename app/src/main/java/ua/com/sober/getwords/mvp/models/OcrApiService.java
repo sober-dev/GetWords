@@ -26,7 +26,10 @@ public interface OcrApiService {
         public static OcrApiService create() {
             HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-            OkHttpClient client = new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
+
+            OkHttpClient client = new OkHttpClient.Builder()
+                    .addInterceptor(loggingInterceptor)
+                    .build();
 
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl("https://api.ocr.space/")

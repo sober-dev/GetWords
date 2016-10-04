@@ -15,8 +15,10 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
+import retrofit2.http.Body;
 import retrofit2.http.POST;
 import ua.com.sober.getwords.mvp.models.mstranslator.ArrayOfGetTranslationsResponse;
+import ua.com.sober.getwords.mvp.models.mstranslator.GetTranslationsArrayRequest;
 
 /**
  * Created by dmitry on 9/26/16.
@@ -24,19 +26,17 @@ import ua.com.sober.getwords.mvp.models.mstranslator.ArrayOfGetTranslationsRespo
 
 public interface MicrosoftTranslatorApiService {
     @POST("GetTranslationsArray")
-    Call<ArrayOfGetTranslationsResponse> getTranslationsArray();
+    Call<ArrayOfGetTranslationsResponse> getTranslationsArray(@Body GetTranslationsArrayRequest body);
 
     class Factory {
         public static MicrosoftTranslatorApiService create() {
-            Strategy strategy = new AnnotationStrategy();
-            Serializer serializer = new Persister(strategy);
-
-            OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-
             HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-            httpClient
+            Strategy strategy = new AnnotationStrategy();
+            Serializer serializer = new Persister(strategy);
+
+            OkHttpClient client = new OkHttpClient.Builder()
                     .addInterceptor(loggingInterceptor)
                     .addInterceptor(new Interceptor() {
                         @Override
@@ -44,13 +44,12 @@ public interface MicrosoftTranslatorApiService {
                             Request original = chain.request();
 
                             Request.Builder requestBuilder = original.newBuilder()
-                                    .header("Authorization", "auth-value");
+                                    .header("Authorization", "Bearer" + " " + "accessToken"); // Access Token Value
                             Request request = requestBuilder.build();
                             return chain.proceed(request);
                         }
-                    });
-
-            OkHttpClient client = httpClient.build();
+                    })
+                    .build();
 
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl("http://api.microsofttranslator.com/V2/Http.svc/")

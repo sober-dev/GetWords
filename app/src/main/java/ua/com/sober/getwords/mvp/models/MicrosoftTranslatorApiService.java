@@ -41,12 +41,12 @@ public interface MicrosoftTranslatorApiService {
                     .addInterceptor(new Interceptor() {
                         @Override
                         public Response intercept(Interceptor.Chain chain) throws IOException {
-                            Request original = chain.request();
+                            Request originalRequest = chain.request();
 
-                            Request.Builder requestBuilder = original.newBuilder()
-                                    .header("Authorization", "Bearer" + " " + "accessToken"); // Access Token Value
-                            Request request = requestBuilder.build();
-                            return chain.proceed(request);
+                            Request authorisedRequest = originalRequest.newBuilder()
+                                    .header("Authorization", "Bearer" + " " + accessToken)
+                                    .build();
+                            return chain.proceed(authorisedRequest);
                         }
                     })
                     .build();

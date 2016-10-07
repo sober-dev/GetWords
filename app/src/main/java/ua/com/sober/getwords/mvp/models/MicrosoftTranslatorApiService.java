@@ -5,12 +5,7 @@ import org.simpleframework.xml.convert.AnnotationStrategy;
 import org.simpleframework.xml.core.Persister;
 import org.simpleframework.xml.strategy.Strategy;
 
-import java.io.IOException;
-
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -38,17 +33,7 @@ public interface MicrosoftTranslatorApiService {
 
             OkHttpClient client = new OkHttpClient.Builder()
                     .addInterceptor(loggingInterceptor)
-                    .addInterceptor(new Interceptor() {
-                        @Override
-                        public Response intercept(Interceptor.Chain chain) throws IOException {
-                            Request originalRequest = chain.request();
-
-                            Request authorisedRequest = originalRequest.newBuilder()
-                                    .header("Authorization", "Bearer" + " " + accessToken)
-                                    .build();
-                            return chain.proceed(authorisedRequest);
-                        }
-                    })
+                    .addInterceptor(new TokenInterceptor(new MicrosoftTokenManager()))
                     .build();
 
             Retrofit retrofit = new Retrofit.Builder()

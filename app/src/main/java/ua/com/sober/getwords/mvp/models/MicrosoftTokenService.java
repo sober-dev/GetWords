@@ -19,7 +19,6 @@ public interface MicrosoftTokenService {
     String GRANT_TYPE_CLIENT_CREDENTIALS = "client_credentials";
     String SCOPE_TRANSLATOR = "http://api.microsofttranslator.com";
 
-
     @POST("OAuth2-13")
     @FormUrlEncoded
     Call<MicrosoftToken> getToken(@Field("grant_type") String grantType,

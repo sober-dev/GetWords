@@ -1,46 +1,63 @@
 package ua.com.sober.getwords.mvp.models;
 
+import android.util.Log;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import ua.com.sober.getwords.mvp.models.mstranslator.MicrosoftToken;
+
 /**
  * Created by dmitry on 10/7/16.
  */
 
 public class MicrosoftTokenManager implements TokenManager {
-//    MicrosoftTokenService service = MicrosoftTokenService.Factory.create();
-//    Call<MicrosoftToken> call = service.getToken(
-//                    MicrosoftTokenService.GRANT_TYPE_CLIENT_CREDENTIALS,
-//                    MicrosoftTokenService.SCOPE_TRANSLATOR,
-//                    "clientId",
-//                    "clientSecret") ;
-//
-//    call.enqueue(new Callback<MicrosoftToken>() {
-//        @Override
-//        public void onResponse(Call<MicrosoftToken> call, Response<MicrosoftToken> response) {
-//
-//        }
-//
-//        @Override
-//        public void onFailure(Call<MicrosoftToken> call, Throwable t) {
-//
-//        }
-//    });
+    private MicrosoftTokenService tokenService = MicrosoftTokenService.Factory.create();
+    private Call<MicrosoftToken> call = tokenService.getToken(
+            MicrosoftTokenService.GRANT_TYPE_CLIENT_CREDENTIALS,
+            MicrosoftTokenService.SCOPE_TRANSLATOR,
+            "clientId",
+            "clientSecret");
+    private String accessToken = null;
+    private Long expiresTime = 0L;
 
-    @Override
-    public String getToken() {
-        return null;
+    public String getAccessToken() {
+        return accessToken;
     }
 
     @Override
-    public boolean hasToken() {
-        return false;
+    public boolean hasAccessToken() {
+        return accessToken != null && (expiresTime - 60000) > System.currentTimeMillis();
     }
 
     @Override
-    public void clearToken() {
-
+    public void clearAccessToken() {
+        accessToken = null;
+        expiresTime = 0L;
     }
 
     @Override
-    public String refreshToken() {
-        return null;
+    public String refreshAccessToken() {
+        call.enqueue(new Callback<MicrosoftToken>() {
+            @Override
+            public void onResponse(Call<MicrosoftToken> call, Response<MicrosoftToken> response) {
+                if (response.isSuccessful()) {
+                    MicrosoftToken microsoftToken = response.body();
+                    Integer expiresIn = microsoftToken.getExpiresIn();
+                    expiresTime = (expiresIn * 1000) + System.currentTimeMillis();
+                    accessToken = microsoftToken.getAccessToken();
+                } else {
+                    // error response
+                    Log.d("Error", "error response");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MicrosoftToken> call, Throwable t) {
+                // something went completely south (like no internet connection)
+                Log.d("Error", t.getMessage());
+            }
+        });
+        return accessToken;
     }
 }

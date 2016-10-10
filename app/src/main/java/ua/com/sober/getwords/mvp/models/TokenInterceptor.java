@@ -5,7 +5,6 @@ import java.io.IOException;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
-import ua.com.sober.getwords.mvp.models.TokenManager;
 
 /**
  * Created by dmitry on 10/7/16.
@@ -22,19 +21,18 @@ public class TokenInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         Request originalRequest = chain.request();
         Request authorisedRequest = originalRequest;
-        if (tokenManager.hasToken()) {
+        if (tokenManager.hasAccessToken()) {
             authorisedRequest = originalRequest.newBuilder()
-                    .addHeader("Authorization", "Bearer" + " " + tokenManager.getToken())
+                    .addHeader("Authorization", "Bearer" + " " + tokenManager.getAccessToken())
                     .build();
         }
 
         Response response = chain.proceed(authorisedRequest);
         boolean unauthorized = response.code() == 400;
         if (unauthorized) {
-            tokenManager.clearToken();
-            String newToken = tokenManager.refreshToken();
+            tokenManager.clearAccessToken();
             authorisedRequest = originalRequest.newBuilder()
-                    .addHeader("Authorization", "Bearer" + " " + newToken)
+                    .addHeader("Authorization", "Bearer" + " " + tokenManager.refreshAccessToken())
                     .build();
             return chain.proceed(authorisedRequest);
         }

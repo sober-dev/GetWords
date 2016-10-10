@@ -5,8 +5,8 @@ package ua.com.sober.getwords.mvp.models;
  */
 
 public interface TokenManager {
-    String getToken();
-    boolean hasToken();
-    void clearToken();
-    String refreshToken();
+    String getAccessToken();
+    boolean hasAccessToken();
+    void clearAccessToken();
+    String refreshAccessToken();
 }

@@ -3,6 +3,7 @@ package ua.com.sober.getwords.mvp.models.mstranslator;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Namespace;
+import org.simpleframework.xml.Order;
 import org.simpleframework.xml.Root;
 import org.simpleframework.xml.Text;
 
@@ -13,25 +14,26 @@ import java.util.List;
  */
 
 @Root(name = "GetTranslationsArrayRequest")
+@Order(elements = {"AppId", "From", "Options", "Texts", "To", "MaxTranslations"})
 public class GetTranslationsArrayRequest {
 
     @Element(name = "AppId", required = false)
-    String appId;
+    private String appId;
 
     @Element(name = "From", required = false)
-    String from;
+    private String from;
 
     @Element(name = "Options", required = false)
-    Options options;
+    private Options options;
 
-    @ElementList(name = "Texts", required = false)
-    List<StringWithNamespace> texts;
+    @Element(name = "Texts", required = false)
+    private Texts texts;
 
     @Element(name = "To", required = false)
-    String to;
+    private String to;
 
     @Element(name = "MaxTranslations", required = false)
-    String maxTranslations;
+    private Integer maxTranslations;
 
 
     public String getAppId() {
@@ -61,11 +63,11 @@ public class GetTranslationsArrayRequest {
     }
 
 
-    public List<StringWithNamespace> getTexts() {
+    public Texts getTexts() {
         return this.texts;
     }
 
-    public void setTexts(List<StringWithNamespace> _value) {
+    public void setTexts(Texts _value) {
         this.texts = _value;
     }
 
@@ -79,40 +81,51 @@ public class GetTranslationsArrayRequest {
     }
 
 
-    public String getMaxTranslations() {
+    public Integer getMaxTranslations() {
         return this.maxTranslations;
     }
 
-    public void setMaxTranslations(String _value) {
+    public void setMaxTranslations(Integer _value) {
         this.maxTranslations = _value;
     }
 
+    public static class Texts {
+        @ElementList(name = "string", required = false, inline = true)
+        private List<StringWithNamespace> texts;
+
+        public List<StringWithNamespace> getTexts() {
+            return texts;
+        }
+
+        public void setTexts(List<StringWithNamespace> texts) {
+            this.texts = texts;
+        }
+    }
 
     public static class Options {
-
         @Element(name = "Category", required = false)
         @Namespace(reference = "http://schemas.datacontract.org/2004/07/Microsoft.MT.Web.Service.V2")
-        String category;
+        private String category;
 
         @Element(name = "ContentType", required = false)
         @Namespace(reference = "http://schemas.datacontract.org/2004/07/Microsoft.MT.Web.Service.V2")
-        String contentType;
+        private String contentType;
 
         @Element(name = "ReservedFlags", required = false)
         @Namespace(reference = "http://schemas.datacontract.org/2004/07/Microsoft.MT.Web.Service.V2")
-        String reservedFlags;
+        private String reservedFlags;
 
         @Element(name = "State", required = false)
         @Namespace(reference = "http://schemas.datacontract.org/2004/07/Microsoft.MT.Web.Service.V2")
-        int state;
+        private Integer state;
 
         @Element(name = "Uri", required = false)
         @Namespace(reference = "http://schemas.datacontract.org/2004/07/Microsoft.MT.Web.Service.V2")
-        String uri;
+        private String uri;
 
         @Element(name = "User", required = false)
         @Namespace(reference = "http://schemas.datacontract.org/2004/07/Microsoft.MT.Web.Service.V2")
-        String user;
+        private String user;
 
 
         public String getCategory() {
@@ -142,11 +155,11 @@ public class GetTranslationsArrayRequest {
         }
 
 
-        public int getState() {
+        public Integer getState() {
             return this.state;
         }
 
-        public void setState(int _value) {
+        public void setState(Integer _value) {
             this.state = _value;
         }
 
@@ -167,7 +180,6 @@ public class GetTranslationsArrayRequest {
         public void setUser(String _value) {
             this.user = _value;
         }
-
 
     }
 

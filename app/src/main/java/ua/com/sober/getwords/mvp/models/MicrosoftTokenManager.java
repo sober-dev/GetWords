@@ -16,8 +16,8 @@ public class MicrosoftTokenManager implements TokenManager {
     private Call<MicrosoftToken> call = tokenService.getToken(
             MicrosoftTokenService.GRANT_TYPE_CLIENT_CREDENTIALS,
             MicrosoftTokenService.SCOPE_TRANSLATOR,
-            "clientId",
-            "clientSecret");
+            " ",    //clientId
+            " ");   //clientSecret
     private String accessToken = null;
     private Long expiresTime = 0L;
 
@@ -46,18 +46,20 @@ public class MicrosoftTokenManager implements TokenManager {
                     Integer expiresIn = microsoftToken.getExpiresIn();
                     expiresTime = (expiresIn * 1000) + System.currentTimeMillis();
                     accessToken = microsoftToken.getAccessToken();
+                    Log.d("Result", accessToken);
                 } else {
-                    // error response
-                    Log.d("Error", "error response");
+                    Log.d("Error", "Error token response");
                 }
             }
 
             @Override
             public void onFailure(Call<MicrosoftToken> call, Throwable t) {
-                // something went completely south (like no internet connection)
                 Log.d("Error", t.getMessage());
             }
         });
+        while (accessToken == null) {
+            Log.d("Error", "Wait token response");
+        }
         return accessToken;
     }
 }

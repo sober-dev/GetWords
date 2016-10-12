@@ -1,10 +1,10 @@
 package ua.com.sober.getwords.mvp.models;
 
-import android.util.Log;
+import java.io.IOException;
 
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+
+import ua.com.sober.getwords.BuildConfig;
 import ua.com.sober.getwords.mvp.models.mstranslator.MicrosoftToken;
 
 /**
@@ -12,12 +12,6 @@ import ua.com.sober.getwords.mvp.models.mstranslator.MicrosoftToken;
  */
 
 public class MicrosoftTokenManager implements TokenManager {
-    private MicrosoftTokenService tokenService = MicrosoftTokenService.Factory.create();
-    private Call<MicrosoftToken> call = tokenService.getToken(
-            MicrosoftTokenService.GRANT_TYPE_CLIENT_CREDENTIALS,
-            MicrosoftTokenService.SCOPE_TRANSLATOR,
-            " ",    //clientId
-            " ");   //clientSecret
     private String accessToken = null;
     private Long expiresTime = 0L;
 
@@ -38,28 +32,23 @@ public class MicrosoftTokenManager implements TokenManager {
 
     @Override
     public String refreshAccessToken() {
-        call.enqueue(new Callback<MicrosoftToken>() {
-            @Override
-            public void onResponse(Call<MicrosoftToken> call, Response<MicrosoftToken> response) {
-                if (response.isSuccessful()) {
-                    MicrosoftToken microsoftToken = response.body();
-                    Integer expiresIn = microsoftToken.getExpiresIn();
-                    expiresTime = (expiresIn * 1000) + System.currentTimeMillis();
-                    accessToken = microsoftToken.getAccessToken();
-                    Log.d("Result", accessToken);
-                } else {
-                    Log.d("Error", "Error token response");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<MicrosoftToken> call, Throwable t) {
-                Log.d("Error", t.getMessage());
-            }
-        });
-        while (accessToken == null) {
-            Log.d("Error", "Wait token response");
+        MicrosoftTokenService tokenService = MicrosoftTokenService.Factory.create();
+        Call<MicrosoftToken> call = tokenService.getToken(
+                MicrosoftTokenService.GRANT_TYPE_CLIENT_CREDENTIALS,
+                MicrosoftTokenService.SCOPE_TRANSLATOR,
+                BuildConfig.MS_API_CLIENT_ID,
+                BuildConfig.MS_API_CLIENT_SECRET);
+        MicrosoftToken microsoftToken = null;
+        try {
+            microsoftToken = call.execute().body();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
+        Integer expiresIn = microsoftToken.getExpiresIn();
+        expiresTime = (expiresIn * 1000) + System.currentTimeMillis();
+        accessToken = microsoftToken.getAccessToken();
+
         return accessToken;
     }
 }

@@ -45,10 +45,12 @@ public class MicrosoftTokenManager implements TokenManager {
             e.printStackTrace();
         }
 
-        Integer expiresIn = microsoftToken.getExpiresIn();
-        expiresTime = (expiresIn * 1000) + System.currentTimeMillis();
-        accessToken = microsoftToken.getAccessToken();
-
+        if (microsoftToken != null) {
+            Integer expiresIn = microsoftToken.getExpiresIn();
+            expiresTime = (expiresIn * 1000) + System.currentTimeMillis();
+            accessToken = microsoftToken.getAccessToken();
+        }
         return accessToken;
     }
+
 }

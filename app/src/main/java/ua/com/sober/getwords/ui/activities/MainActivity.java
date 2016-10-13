@@ -68,7 +68,8 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
             @Override
             public void onResponse(Call<ArrayOfGetTranslationsResponse> call, Response<ArrayOfGetTranslationsResponse> response) {
                 if (response.isSuccessful()) {
-                    Log.d("Result", response.body().toString());
+                    ArrayOfGetTranslationsResponse result = response.body();
+                    Log.d("Result", result.toString());
                 } else {
                     Log.d("Error", "Error translations response");
                 }

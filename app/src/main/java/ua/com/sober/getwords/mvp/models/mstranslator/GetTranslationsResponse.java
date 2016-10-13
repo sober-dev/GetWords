@@ -10,13 +10,14 @@ import java.util.List;
  */
 
 public class GetTranslationsResponse {
+
     @Element(name = "From", required = false)
     private String from;
 
     @Element(name = "State", required = false)
     private int state;
 
-    @ElementList(name = "Translations", required = false)
+    @ElementList(entry = "Translations", name = "Translations", required = false)
     private List<TranslationMatch> translations;
 
     public String getFrom() {

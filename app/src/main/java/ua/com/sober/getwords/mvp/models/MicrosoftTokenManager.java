@@ -12,8 +12,8 @@ import ua.com.sober.getwords.mvp.models.mstranslator.MicrosoftToken;
  */
 
 public class MicrosoftTokenManager implements TokenManager {
-    private String accessToken = null;
-    private Long expiresTime = 0L;
+    private static String accessToken = null;
+    private static Long expiresTime = 0L;
 
     public String getAccessToken() {
         return accessToken;

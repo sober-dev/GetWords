@@ -17,22 +17,22 @@ import java.util.List;
 @Order(elements = {"AppId", "From", "Options", "Texts", "To", "MaxTranslations"})
 public class GetTranslationsArrayRequest {
 
-    @Element(name = "AppId", required = false)
+    @Element(name = "AppId")
     private String appId;
 
-    @Element(name = "From", required = false)
+    @Element(name = "From")
     private String from;
 
     @Element(name = "Options", required = false)
     private Options options;
 
-    @Element(name = "Texts", required = false)
+    @Element(name = "Texts")
     private Texts texts;
 
-    @Element(name = "To", required = false)
+    @Element(name = "To")
     private String to;
 
-    @Element(name = "MaxTranslations", required = false)
+    @Element(name = "MaxTranslations")
     private Integer maxTranslations;
 
 
@@ -40,8 +40,8 @@ public class GetTranslationsArrayRequest {
         return this.appId;
     }
 
-    public void setAppId(String _value) {
-        this.appId = _value;
+    public void setAppId(String appId) {
+        this.appId = appId;
     }
 
 
@@ -49,8 +49,8 @@ public class GetTranslationsArrayRequest {
         return this.from;
     }
 
-    public void setFrom(String _value) {
-        this.from = _value;
+    public void setFrom(String from) {
+        this.from = from;
     }
 
 
@@ -58,8 +58,8 @@ public class GetTranslationsArrayRequest {
         return this.options;
     }
 
-    public void setOptions(Options _value) {
-        this.options = _value;
+    public void setOptions(Options options) {
+        this.options = options;
     }
 
 
@@ -67,8 +67,8 @@ public class GetTranslationsArrayRequest {
         return this.texts;
     }
 
-    public void setTexts(Texts _value) {
-        this.texts = _value;
+    public void setTexts(Texts texts) {
+        this.texts = texts;
     }
 
 
@@ -76,8 +76,8 @@ public class GetTranslationsArrayRequest {
         return this.to;
     }
 
-    public void setTo(String _value) {
-        this.to = _value;
+    public void setTo(String to) {
+        this.to = to;
     }
 
 
@@ -85,13 +85,16 @@ public class GetTranslationsArrayRequest {
         return this.maxTranslations;
     }
 
-    public void setMaxTranslations(Integer _value) {
-        this.maxTranslations = _value;
+    public void setMaxTranslations(Integer maxTranslations) {
+        this.maxTranslations = maxTranslations;
     }
 
+
     public static class Texts {
-        @ElementList(name = "string", required = false, inline = true)
+
+        @ElementList(entry = "string", inline = true)
         private List<StringWithNamespace> texts;
+
 
         public List<StringWithNamespace> getTexts() {
             return texts;
@@ -100,9 +103,11 @@ public class GetTranslationsArrayRequest {
         public void setTexts(List<StringWithNamespace> texts) {
             this.texts = texts;
         }
+
     }
 
     public static class Options {
+
         @Element(name = "Category", required = false)
         @Namespace(reference = "http://schemas.datacontract.org/2004/07/Microsoft.MT.Web.Service.V2")
         private String category;
@@ -132,8 +137,8 @@ public class GetTranslationsArrayRequest {
             return this.category;
         }
 
-        public void setCategory(String _value) {
-            this.category = _value;
+        public void setCategory(String category) {
+            this.category = category;
         }
 
 
@@ -141,8 +146,8 @@ public class GetTranslationsArrayRequest {
             return this.contentType;
         }
 
-        public void setContentType(String _value) {
-            this.contentType = _value;
+        public void setContentType(String contentType) {
+            this.contentType = contentType;
         }
 
 
@@ -150,8 +155,8 @@ public class GetTranslationsArrayRequest {
             return this.reservedFlags;
         }
 
-        public void setReservedFlags(String _value) {
-            this.reservedFlags = _value;
+        public void setReservedFlags(String reservedFlags) {
+            this.reservedFlags = reservedFlags;
         }
 
 
@@ -159,8 +164,8 @@ public class GetTranslationsArrayRequest {
             return this.state;
         }
 
-        public void setState(Integer _value) {
-            this.state = _value;
+        public void setState(Integer state) {
+            this.state = state;
         }
 
 
@@ -168,8 +173,8 @@ public class GetTranslationsArrayRequest {
             return this.uri;
         }
 
-        public void setUri(String _value) {
-            this.uri = _value;
+        public void setUri(String uri) {
+            this.uri = uri;
         }
 
 
@@ -177,8 +182,8 @@ public class GetTranslationsArrayRequest {
             return this.user;
         }
 
-        public void setUser(String _value) {
-            this.user = _value;
+        public void setUser(String user) {
+            this.user = user;
         }
 
     }
@@ -188,11 +193,13 @@ public class GetTranslationsArrayRequest {
     public static class StringWithNamespace {
 
         @Text
-        private String string = null;
+        private String string;
+
 
         public StringWithNamespace(String string) {
             this.string = string;
         }
+
 
         public String getString() {
             return string;
@@ -201,6 +208,7 @@ public class GetTranslationsArrayRequest {
         public void setString(String string) {
             this.string = string;
         }
+
     }
 
 }

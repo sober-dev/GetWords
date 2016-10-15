@@ -67,11 +67,12 @@ public class MicrosoftApiTest {
             }
         });
         latch.await();
-        Assert.assertNotNull(service);
+        Assert.assertNotNull(result);
+//        System.out.println(result.toString());
     }
 
     @After
     public void afterTest() {
-        result.toString();
+        result = null;
     }
 }

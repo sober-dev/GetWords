@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
-import ua.com.sober.getwords.mvp.models.mstranslator.MicrosoftToken;
+import ua.com.sober.getwords.mvp.models.ms.MicrosoftToken;
 
 /**
  * Created by dmitry on 10/7/16.

@@ -6,135 +6,141 @@ import java.util.List;
 import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 @Generated("org.jsonschema2pojo")
 public class OcrApiResponse {
 
     @SerializedName("ParsedResults")
     @Expose
-    private List<ParsedResult> ParsedResults = new ArrayList<ParsedResult>();
+    private List<ParsedResult> parsedResults = new ArrayList<ParsedResult>();
     @SerializedName("OCRExitCode")
     @Expose
-    private Integer OCRExitCode;
+    private Integer oCRExitCode;
     @SerializedName("IsErroredOnProcessing")
     @Expose
-    private Boolean IsErroredOnProcessing;
+    private Boolean isErroredOnProcessing;
     @SerializedName("ErrorMessage")
     @Expose
-    private Object ErrorMessage;
+    private String errorMessage;
     @SerializedName("ErrorDetails")
     @Expose
-    private Object ErrorDetails;
+    private String errorDetails;
     @SerializedName("ProcessingTimeInMilliseconds")
     @Expose
-    private String ProcessingTimeInMilliseconds;
+    private String processingTimeInMilliseconds;
 
     /**
      * 
      * @return
-     *     The ParsedResults
+     *     The parsedResults
      */
     public List<ParsedResult> getParsedResults() {
-        return ParsedResults;
+        return parsedResults;
     }
 
     /**
      * 
-     * @param ParsedResults
+     * @param parsedResults
      *     The ParsedResults
      */
-    public void setParsedResults(List<ParsedResult> ParsedResults) {
-        this.ParsedResults = ParsedResults;
+    public void setParsedResults(List<ParsedResult> parsedResults) {
+        this.parsedResults = parsedResults;
     }
 
     /**
      * 
      * @return
-     *     The OCRExitCode
+     *     The oCRExitCode
      */
     public Integer getOCRExitCode() {
-        return OCRExitCode;
+        return oCRExitCode;
     }
 
     /**
      * 
-     * @param OCRExitCode
+     * @param oCRExitCode
      *     The OCRExitCode
      */
-    public void setOCRExitCode(Integer OCRExitCode) {
-        this.OCRExitCode = OCRExitCode;
+    public void setOCRExitCode(Integer oCRExitCode) {
+        this.oCRExitCode = oCRExitCode;
     }
 
     /**
      * 
      * @return
-     *     The IsErroredOnProcessing
+     *     The isErroredOnProcessing
      */
     public Boolean getIsErroredOnProcessing() {
-        return IsErroredOnProcessing;
+        return isErroredOnProcessing;
     }
 
     /**
      * 
-     * @param IsErroredOnProcessing
+     * @param isErroredOnProcessing
      *     The IsErroredOnProcessing
      */
-    public void setIsErroredOnProcessing(Boolean IsErroredOnProcessing) {
-        this.IsErroredOnProcessing = IsErroredOnProcessing;
+    public void setIsErroredOnProcessing(Boolean isErroredOnProcessing) {
+        this.isErroredOnProcessing = isErroredOnProcessing;
     }
 
     /**
      * 
      * @return
+     *     The errorMessage
+     */
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    /**
+     * 
+     * @param errorMessage
      *     The ErrorMessage
      */
-    public Object getErrorMessage() {
-        return ErrorMessage;
-    }
-
-    /**
-     * 
-     * @param ErrorMessage
-     *     The ErrorMessage
-     */
-    public void setErrorMessage(Object ErrorMessage) {
-        this.ErrorMessage = ErrorMessage;
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 
     /**
      * 
      * @return
-     *     The ErrorDetails
+     *     The errorDetails
      */
-    public Object getErrorDetails() {
-        return ErrorDetails;
+    public String getErrorDetails() {
+        return errorDetails;
     }
 
     /**
      * 
-     * @param ErrorDetails
+     * @param errorDetails
      *     The ErrorDetails
      */
-    public void setErrorDetails(Object ErrorDetails) {
-        this.ErrorDetails = ErrorDetails;
+    public void setErrorDetails(String errorDetails) {
+        this.errorDetails = errorDetails;
     }
 
     /**
      * 
      * @return
-     *     The ProcessingTimeInMilliseconds
+     *     The processingTimeInMilliseconds
      */
     public String getProcessingTimeInMilliseconds() {
-        return ProcessingTimeInMilliseconds;
+        return processingTimeInMilliseconds;
     }
 
     /**
      * 
-     * @param ProcessingTimeInMilliseconds
+     * @param processingTimeInMilliseconds
      *     The ProcessingTimeInMilliseconds
      */
-    public void setProcessingTimeInMilliseconds(String ProcessingTimeInMilliseconds) {
-        this.ProcessingTimeInMilliseconds = ProcessingTimeInMilliseconds;
+    public void setProcessingTimeInMilliseconds(String processingTimeInMilliseconds) {
+        this.processingTimeInMilliseconds = processingTimeInMilliseconds;
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 
 }

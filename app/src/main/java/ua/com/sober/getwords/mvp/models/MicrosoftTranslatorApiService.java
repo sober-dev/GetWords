@@ -12,8 +12,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
-import ua.com.sober.getwords.mvp.models.mstranslator.ArrayOfGetTranslationsResponse;
-import ua.com.sober.getwords.mvp.models.mstranslator.GetTranslationsArrayRequest;
+import ua.com.sober.getwords.mvp.models.ms.ArrayOfGetTranslationsResponse;
+import ua.com.sober.getwords.mvp.models.ms.GetTranslationsArrayRequest;
 
 /**
  * Created by dmitry on 9/26/16.

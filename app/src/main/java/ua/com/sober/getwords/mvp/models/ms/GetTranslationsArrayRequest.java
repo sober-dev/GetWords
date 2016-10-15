@@ -1,4 +1,4 @@
-package ua.com.sober.getwords.mvp.models.mstranslator;
+package ua.com.sober.getwords.mvp.models.ms;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;

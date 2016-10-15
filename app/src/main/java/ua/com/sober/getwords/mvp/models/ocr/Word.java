@@ -4,114 +4,120 @@ package ua.com.sober.getwords.mvp.models.ocr;
 import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 @Generated("org.jsonschema2pojo")
 public class Word {
 
     @SerializedName("WordText")
     @Expose
-    private String WordText;
+    private String wordText;
     @SerializedName("Left")
     @Expose
-    private Integer Left;
+    private Integer left;
     @SerializedName("Top")
     @Expose
-    private Integer Top;
+    private Integer top;
     @SerializedName("Height")
     @Expose
-    private Integer Height;
+    private Integer height;
     @SerializedName("Width")
     @Expose
-    private Integer Width;
+    private Integer width;
 
     /**
      * 
      * @return
-     *     The WordText
+     *     The wordText
      */
     public String getWordText() {
-        return WordText;
+        return wordText;
     }
 
     /**
      * 
-     * @param WordText
+     * @param wordText
      *     The WordText
      */
-    public void setWordText(String WordText) {
-        this.WordText = WordText;
+    public void setWordText(String wordText) {
+        this.wordText = wordText;
     }
 
     /**
      * 
      * @return
-     *     The Left
+     *     The left
      */
     public Integer getLeft() {
-        return Left;
+        return left;
     }
 
     /**
      * 
-     * @param Left
+     * @param left
      *     The Left
      */
-    public void setLeft(Integer Left) {
-        this.Left = Left;
+    public void setLeft(Integer left) {
+        this.left = left;
     }
 
     /**
      * 
      * @return
-     *     The Top
+     *     The top
      */
     public Integer getTop() {
-        return Top;
+        return top;
     }
 
     /**
      * 
-     * @param Top
+     * @param top
      *     The Top
      */
-    public void setTop(Integer Top) {
-        this.Top = Top;
+    public void setTop(Integer top) {
+        this.top = top;
     }
 
     /**
      * 
      * @return
-     *     The Height
+     *     The height
      */
     public Integer getHeight() {
-        return Height;
+        return height;
     }
 
     /**
      * 
-     * @param Height
+     * @param height
      *     The Height
      */
-    public void setHeight(Integer Height) {
-        this.Height = Height;
+    public void setHeight(Integer height) {
+        this.height = height;
     }
 
     /**
      * 
      * @return
-     *     The Width
+     *     The width
      */
     public Integer getWidth() {
-        return Width;
+        return width;
     }
 
     /**
      * 
-     * @param Width
+     * @param width
      *     The Width
      */
-    public void setWidth(Integer Width) {
-        this.Width = Width;
+    public void setWidth(Integer width) {
+        this.width = width;
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 
 }

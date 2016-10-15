@@ -1,4 +1,4 @@
-package ua.com.sober.getwords.mvp.models.mstranslator;
+package ua.com.sober.getwords.mvp.models.ms;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -8,18 +8,23 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class MicrosoftToken {
+
     @SerializedName("access_token")
     @Expose
     private String accessToken;
+
     @SerializedName("expires_in")
     @Expose
     private Integer expiresIn;
+
     @SerializedName("scope")
     @Expose
     private String scope;
+
     @SerializedName("token_type")
     @Expose
     private String tokenType;
+
 
     public String getAccessToken() {
         return accessToken;
@@ -29,6 +34,7 @@ public class MicrosoftToken {
         this.accessToken = accessToken;
     }
 
+
     public Integer getExpiresIn() {
         return expiresIn;
     }
@@ -36,6 +42,7 @@ public class MicrosoftToken {
     public void setExpiresIn(Integer expiresIn) {
         this.expiresIn = expiresIn;
     }
+
 
     public String getScope() {
         return scope;
@@ -45,6 +52,7 @@ public class MicrosoftToken {
         this.scope = scope;
     }
 
+
     public String getTokenType() {
         return tokenType;
     }
@@ -53,13 +61,14 @@ public class MicrosoftToken {
         this.tokenType = tokenType;
     }
 
+
     @Override
     public String toString() {
-        return "MicrosoftToken{" +
-                "accessToken='" + accessToken + '\'' +
-                ", expiresIn=" + expiresIn +
-                ", scope='" + scope + '\'' +
-                ", tokenType='" + tokenType + '\'' +
-                '}';
+        return "MicrosoftToken {" +
+                " accessToken = " + accessToken +
+                ", expiresIn = " + expiresIn +
+                ", scope = " + scope +
+                ", tokenType = " + tokenType + " }";
     }
+
 }

@@ -6,72 +6,78 @@ import java.util.List;
 import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 @Generated("org.jsonschema2pojo")
 public class TextOverlay {
 
     @SerializedName("Lines")
     @Expose
-    private List<Line> Lines = new ArrayList<Line>();
+    private List<Line> lines = new ArrayList<Line>();
     @SerializedName("HasOverlay")
     @Expose
-    private Boolean HasOverlay;
+    private Boolean hasOverlay;
     @SerializedName("Message")
     @Expose
-    private String Message;
+    private String message;
 
     /**
      * 
      * @return
-     *     The Lines
+     *     The lines
      */
     public List<Line> getLines() {
-        return Lines;
+        return lines;
     }
 
     /**
      * 
-     * @param Lines
+     * @param lines
      *     The Lines
      */
-    public void setLines(List<Line> Lines) {
-        this.Lines = Lines;
+    public void setLines(List<Line> lines) {
+        this.lines = lines;
     }
 
     /**
      * 
      * @return
-     *     The HasOverlay
+     *     The hasOverlay
      */
     public Boolean getHasOverlay() {
-        return HasOverlay;
+        return hasOverlay;
     }
 
     /**
      * 
-     * @param HasOverlay
+     * @param hasOverlay
      *     The HasOverlay
      */
-    public void setHasOverlay(Boolean HasOverlay) {
-        this.HasOverlay = HasOverlay;
+    public void setHasOverlay(Boolean hasOverlay) {
+        this.hasOverlay = hasOverlay;
     }
 
     /**
      * 
      * @return
-     *     The Message
+     *     The message
      */
     public String getMessage() {
-        return Message;
+        return message;
     }
 
     /**
      * 
-     * @param Message
+     * @param message
      *     The Message
      */
-    public void setMessage(String Message) {
-        this.Message = Message;
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 
 }

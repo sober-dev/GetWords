@@ -4,114 +4,120 @@ package ua.com.sober.getwords.mvp.models.ocr;
 import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 @Generated("org.jsonschema2pojo")
 public class ParsedResult {
 
     @SerializedName("TextOverlay")
     @Expose
-    private TextOverlay TextOverlay;
+    private TextOverlay textOverlay;
     @SerializedName("FileParseExitCode")
     @Expose
-    private Integer FileParseExitCode;
+    private Integer fileParseExitCode;
     @SerializedName("ParsedText")
     @Expose
-    private String ParsedText;
+    private String parsedText;
     @SerializedName("ErrorMessage")
     @Expose
-    private String ErrorMessage;
+    private String errorMessage;
     @SerializedName("ErrorDetails")
     @Expose
-    private String ErrorDetails;
+    private String errorDetails;
 
     /**
      * 
      * @return
-     *     The TextOverlay
+     *     The textOverlay
      */
     public TextOverlay getTextOverlay() {
-        return TextOverlay;
+        return textOverlay;
     }
 
     /**
      * 
-     * @param TextOverlay
+     * @param textOverlay
      *     The TextOverlay
      */
-    public void setTextOverlay(TextOverlay TextOverlay) {
-        this.TextOverlay = TextOverlay;
+    public void setTextOverlay(TextOverlay textOverlay) {
+        this.textOverlay = textOverlay;
     }
 
     /**
      * 
      * @return
-     *     The FileParseExitCode
+     *     The fileParseExitCode
      */
     public Integer getFileParseExitCode() {
-        return FileParseExitCode;
+        return fileParseExitCode;
     }
 
     /**
      * 
-     * @param FileParseExitCode
+     * @param fileParseExitCode
      *     The FileParseExitCode
      */
-    public void setFileParseExitCode(Integer FileParseExitCode) {
-        this.FileParseExitCode = FileParseExitCode;
+    public void setFileParseExitCode(Integer fileParseExitCode) {
+        this.fileParseExitCode = fileParseExitCode;
     }
 
     /**
      * 
      * @return
-     *     The ParsedText
+     *     The parsedText
      */
     public String getParsedText() {
-        return ParsedText;
+        return parsedText;
     }
 
     /**
      * 
-     * @param ParsedText
+     * @param parsedText
      *     The ParsedText
      */
-    public void setParsedText(String ParsedText) {
-        this.ParsedText = ParsedText;
+    public void setParsedText(String parsedText) {
+        this.parsedText = parsedText;
     }
 
     /**
      * 
      * @return
-     *     The ErrorMessage
+     *     The errorMessage
      */
     public String getErrorMessage() {
-        return ErrorMessage;
+        return errorMessage;
     }
 
     /**
      * 
-     * @param ErrorMessage
+     * @param errorMessage
      *     The ErrorMessage
      */
-    public void setErrorMessage(String ErrorMessage) {
-        this.ErrorMessage = ErrorMessage;
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 
     /**
      * 
      * @return
-     *     The ErrorDetails
+     *     The errorDetails
      */
     public String getErrorDetails() {
-        return ErrorDetails;
+        return errorDetails;
     }
 
     /**
      * 
-     * @param ErrorDetails
+     * @param errorDetails
      *     The ErrorDetails
      */
-    public void setErrorDetails(String ErrorDetails) {
-        this.ErrorDetails = ErrorDetails;
+    public void setErrorDetails(String errorDetails) {
+        this.errorDetails = errorDetails;
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 
 }

@@ -5,7 +5,7 @@ import java.io.IOException;
 import retrofit2.Call;
 
 import ua.com.sober.getwords.BuildConfig;
-import ua.com.sober.getwords.mvp.models.mstranslator.MicrosoftToken;
+import ua.com.sober.getwords.mvp.models.ms.MicrosoftToken;
 
 /**
  * Created by dmitry on 10/7/16.

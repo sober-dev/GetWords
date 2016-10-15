@@ -13,8 +13,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import ua.com.sober.getwords.mvp.models.MicrosoftTranslatorApiService;
-import ua.com.sober.getwords.mvp.models.mstranslator.ArrayOfGetTranslationsResponse;
-import ua.com.sober.getwords.mvp.models.mstranslator.GetTranslationsArrayRequest;
+import ua.com.sober.getwords.mvp.models.ms.ArrayOfGetTranslationsResponse;
+import ua.com.sober.getwords.mvp.models.ms.GetTranslationsArrayRequest;
 
 /**
  * Created by Dmitry on 14.10.2016.
@@ -29,21 +29,32 @@ public class MicrosoftApiTest {
     @Before
     public void beforeTest() {
         service = MicrosoftTranslatorApiService.Factory.create();
-        GetTranslationsArrayRequest.Texts texts = new GetTranslationsArrayRequest.Texts();
-        List<GetTranslationsArrayRequest.StringWithNamespace> textsList = Arrays.asList(
-                new GetTranslationsArrayRequest.StringWithNamespace("lazy"),
-                new GetTranslationsArrayRequest.StringWithNamespace("world"),
-                new GetTranslationsArrayRequest.StringWithNamespace("hole"));
-        texts.setTexts(textsList);
-        GetTranslationsArrayRequest.Options options = new GetTranslationsArrayRequest.Options();
-        options.setState(777);
         request = new GetTranslationsArrayRequest();
+        GetTranslationsArrayRequest.Texts texts = new GetTranslationsArrayRequest.Texts();
+        GetTranslationsArrayRequest.Options options = new GetTranslationsArrayRequest.Options();
+
+        List<GetTranslationsArrayRequest.StringWithNamespace> textsList = Arrays.asList(
+                new GetTranslationsArrayRequest.StringWithNamespace("independence"),
+                new GetTranslationsArrayRequest.StringWithNamespace("verify"),
+                new GetTranslationsArrayRequest.StringWithNamespace("pattern"),
+                new GetTranslationsArrayRequest.StringWithNamespace("water"),
+                new GetTranslationsArrayRequest.StringWithNamespace("instruction"),
+                new GetTranslationsArrayRequest.StringWithNamespace("wallpaper"),
+                new GetTranslationsArrayRequest.StringWithNamespace("snickers"),
+                new GetTranslationsArrayRequest.StringWithNamespace("book"),
+                new GetTranslationsArrayRequest.StringWithNamespace("half"),
+                new GetTranslationsArrayRequest.StringWithNamespace("knitting")
+        );
+
+        texts.setTexts(textsList);
+        options.setState(777);
+
         request.setAppId("");
         request.setTexts(texts);
         request.setFrom("en");
         request.setTo("ru");
         request.setMaxTranslations(5);
-//        request.setOptions(options);
+        request.setOptions(options);
     }
 
     @Test

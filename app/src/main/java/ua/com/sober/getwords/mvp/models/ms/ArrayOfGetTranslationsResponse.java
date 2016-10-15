@@ -1,4 +1,4 @@
-package ua.com.sober.getwords.mvp.models.mstranslator;
+package ua.com.sober.getwords.mvp.models.ms;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
@@ -35,7 +35,6 @@ public class ArrayOfGetTranslationsResponse {
         }
 
         return listString;
-
     }
 
 
@@ -80,9 +79,10 @@ public class ArrayOfGetTranslationsResponse {
 
         @Override
         public String toString() {
-
-            return "GetTranslationsResponse:\n\tFrom = " + from + ", State = " + state + ", Translations:\n" + translations.toString() + "\n";
-
+            return "GetTranslationsResponse:\n\t" +
+                    "From = " + from +
+                    ", State = " + state +
+                    ", Translations:\n" + translations.toString() + "\n";
         }
 
     }
@@ -112,7 +112,6 @@ public class ArrayOfGetTranslationsResponse {
             }
 
             return listString;
-
         }
 
     }
@@ -195,7 +194,12 @@ public class ArrayOfGetTranslationsResponse {
 
         @Override
         public String toString() {
-            return "Count = " + count + ", Error = " + error + ", MatchDegree = " + matchDegree + ", Rating = " + rating + ", MatchedOriginalText = " + matchedOriginalText + ", TranslatedText = " + translatedText + " \n";
+            return "Count = " + count +
+                    ", Error = " + error +
+                    ", MatchDegree = " + matchDegree +
+                    ", Rating = " + rating +
+                    ", MatchedOriginalText = " + matchedOriginalText +
+                    ", TranslatedText = " + translatedText + " \n";
         }
 
     }

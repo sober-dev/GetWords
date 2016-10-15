@@ -43,7 +43,7 @@ public class MicrosoftApiTest {
         request.setFrom("en");
         request.setTo("ru");
         request.setMaxTranslations(5);
-        request.setOptions(options);
+//        request.setOptions(options);
     }
 
     @Test
@@ -68,7 +68,7 @@ public class MicrosoftApiTest {
         });
         latch.await();
         Assert.assertNotNull(result);
-//        System.out.println(result.toString());
+        System.out.println(result.toString());
     }
 
     @After

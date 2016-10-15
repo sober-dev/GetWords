@@ -10,10 +10,10 @@ import java.util.List;
  * Created by dmitry on 9/27/16.
  */
 
-@Root(name = "ArrayOfGetTranslationsResponse", strict = false)
+@Root(name = "ArrayOfGetTranslationsResponse")
 public class ArrayOfGetTranslationsResponse {
 
-    @ElementList(name = "GetTranslationsResponse", inline = true, required = false)
+    @ElementList(name = "GetTranslationsResponse", entry = "GetTranslationsResponse", inline = true)
     private List<GetTranslationsResponse> getTranslationsResponse;
 
 
@@ -28,10 +28,10 @@ public class ArrayOfGetTranslationsResponse {
 
     @Override
     public String toString() {
-        String listString = "ClassPojo ";
+        String listString = "ArrayOfGetTranslationsResponse:\n\n";
 
         for (GetTranslationsResponse getTranslationsResponse : this.getTranslationsResponse) {
-            listString += "[GetTranslationsResponse = " + getTranslationsResponse.toString() + "] ";
+            listString += getTranslationsResponse.toString();
         }
 
         return listString;
@@ -41,14 +41,14 @@ public class ArrayOfGetTranslationsResponse {
 
     public static class GetTranslationsResponse {
 
-        @Element(name = "From", required = false)
+        @Element(name = "From")
         private String from;
 
         @Element(name = "State", required = false)
         private Integer state;
 
-        @ElementList(name = "Translations", required = false)
-        private List<Translations> translations;
+        @Element(name = "Translations")
+        private Translations translations;
 
 
         public String getFrom() {
@@ -69,24 +69,19 @@ public class ArrayOfGetTranslationsResponse {
         }
 
 
-        public List<Translations> getTranslations() {
+        public Translations getTranslations() {
             return this.translations;
         }
 
-        public void setTranslations(List<Translations> translationses) {
+        public void setTranslations(Translations translationses) {
             this.translations = translationses;
         }
 
 
         @Override
         public String toString() {
-            String listString = "ClassPojo [From = " + from + ", State = " + state + ", ";
 
-            for (Translations translations : this.translations) {
-                listString += "[Translations = " + translations.toString() + "] ";
-            }
-
-            return listString;
+            return "GetTranslationsResponse:\n\tFrom = " + from + ", State = " + state + ", Translations:\n" + translations.toString() + "\n";
 
         }
 
@@ -95,7 +90,7 @@ public class ArrayOfGetTranslationsResponse {
 
     public static class Translations {
 
-        @ElementList(name = "TranslationMatch", required = false)
+        @ElementList(name = "TranslationMatch", entry = "TranslationMatch", inline = true)
         private List<TranslationMatch> translationMatch;
 
 
@@ -110,13 +105,14 @@ public class ArrayOfGetTranslationsResponse {
 
         @Override
         public String toString() {
-            String listString = "ClassPojo ";
+            String listString = "";
 
             for (TranslationMatch translationMatch : this.translationMatch) {
-                listString += "[TranslationMatch = " + translationMatch.toString() + "] ";
+                listString += "TranslationMatch:\n\t" + translationMatch.toString();
             }
 
             return listString;
+
         }
 
     }
@@ -124,20 +120,32 @@ public class ArrayOfGetTranslationsResponse {
 
     public static class TranslationMatch {
 
-        @Element(name = "Count", required = false)
+        @Element(name = "Error", required = false)
+        private String error;
+
+        @Element(name = "Count")
         private Integer count;
 
-        @Element(name = "MatchDegree", required = false)
+        @Element(name = "MatchDegree")
         private Integer matchDegree;
 
         @Element(name = "MatchedOriginalText", required = false)
         private String matchedOriginalText;
 
-        @Element(name = "Rating", required = false)
+        @Element(name = "Rating")
         private Integer rating;
 
-        @Element(name = "TranslatedText", required = false)
+        @Element(name = "TranslatedText")
         private String translatedText;
+
+
+        public String getError() {
+            return error;
+        }
+
+        public void setError(String error) {
+            this.error = error;
+        }
 
 
         public Integer getCount() {
@@ -187,7 +195,7 @@ public class ArrayOfGetTranslationsResponse {
 
         @Override
         public String toString() {
-            return "ClassPojo [Count = " + count + ", MatchDegree = " + matchDegree + ", Rating = " + rating + ", MatchedOriginalText = " + matchedOriginalText + ", TranslatedText = " + translatedText + "]";
+            return "Count = " + count + ", Error = " + error + ", MatchDegree = " + matchDegree + ", Rating = " + rating + ", MatchedOriginalText = " + matchedOriginalText + ", TranslatedText = " + translatedText + " \n";
         }
 
     }

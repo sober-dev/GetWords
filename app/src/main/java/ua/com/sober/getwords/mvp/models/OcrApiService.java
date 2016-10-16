@@ -1,5 +1,6 @@
 package ua.com.sober.getwords.mvp.models;
 
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -17,10 +18,10 @@ import ua.com.sober.getwords.mvp.models.ocr.OcrApiResponse;
 public interface OcrApiService {
     @Multipart
     @POST("parse/image")
-    Call<OcrApiResponse> parseImage(@Part("apikey") String apikey,
-                                    @Part("language") String language,
-                                    @Part("isOverlayRequired") String isOverlayRequired,
-                                    @Part("file") RequestBody file);
+    Call<OcrApiResponse> parseImage(@Part("apikey") RequestBody apikey,
+                                    @Part("language") RequestBody language,
+                                    @Part("isOverlayRequired") RequestBody isOverlayRequired,
+                                    @Part MultipartBody.Part file);
 
     class Factory {
         public static OcrApiService create() {
@@ -32,7 +33,7 @@ public interface OcrApiService {
                     .build();
 
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("https://api.ocr.space/")
+                    .baseUrl("http://api.ocr.space/")
                     .client(client)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();

@@ -30,7 +30,7 @@ public class OcrApiTest {
     @Before
     public void beforeTest() {
         service = OcrApiService.Factory.create();
-        file = new File("\\Users\\Dmitry\\Desktop\\ocr_test_img.jpg");
+        file = new File("src/test/java/ua/com/sober/getwords/ocr_test_img.jpg");
     }
 
     @Test

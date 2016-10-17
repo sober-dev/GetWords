@@ -92,7 +92,7 @@ public class GetTranslationsArrayRequest {
 
     public static class Texts {
 
-        @ElementList(entry = "string", inline = true)
+        @ElementList(name = "string", entry = "string", inline = true)
         private List<StringWithNamespace> texts;
 
 

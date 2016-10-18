@@ -17,6 +17,7 @@ import android.view.View;
 
 import com.hannesdorfmann.mosby.mvp.MvpActivity;
 import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.File;
 import java.io.IOException;
@@ -75,11 +76,10 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
 
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
             Log.d("Test", "mCurrentPhotoPath = " + mCurrentPhotoPath);
-//            resizeImage();
 
-//            CropImage.activity(imageUri)
-//                    .setGuidelines(CropImageView.Guidelines.ON)
-//                    .start(this);
+//            Uri imageUri = Uri.fromFile(new File(mCurrentPhotoPath));
+//            startCropImageActivity(imageUri);
+//            resizeImage();
 
         }
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
@@ -92,6 +92,13 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void startCropImageActivity(Uri imageUri) {
+        CropImage.activity(imageUri)
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .setMultiTouchEnabled(true)
+                .start(this);
     }
 
     private void dispatchTakePictureIntent() {
@@ -109,29 +116,23 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
                         photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
 
-                // Fix FATAL EXCEPTION: java.lang.SecurityException: Permission Denial: opening provider android.support.v4.content.FileProvider...
-                if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP) {
+                // Fix FATAL EXCEPTION: java.lang.SecurityException:
+                // Permission Denial: opening provider android.support.v4.content.FileProvider...
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     takePictureIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                }
-                else if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.JELLY_BEAN) {
-                    ClipData clip=
-                            ClipData.newUri(getContentResolver(), "A photo", photoURI);
-
+                } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    ClipData clip = ClipData.newUri(getContentResolver(), "A photo", photoURI);
                     takePictureIntent.setClipData(clip);
                     takePictureIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                }
-                else {
-                    List<ResolveInfo> resInfoList=
-                            getPackageManager()
-                                    .queryIntentActivities(takePictureIntent, PackageManager.MATCH_DEFAULT_ONLY);
+                } else {
+                    List<ResolveInfo> resInfoList = getPackageManager()
+                            .queryIntentActivities(takePictureIntent, PackageManager.MATCH_DEFAULT_ONLY);
 
                     for (ResolveInfo resolveInfo : resInfoList) {
                         String packageName = resolveInfo.activityInfo.packageName;
-                        grantUriPermission(packageName, photoURI,
-                                Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                        grantUriPermission(packageName, photoURI, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                     }
                 }
-
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
             }
         }
@@ -139,8 +140,8 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
 
     private File createImageFile() throws IOException {
         // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
+//        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "image_for_parsing";
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
                 imageFileName,  /* prefix */

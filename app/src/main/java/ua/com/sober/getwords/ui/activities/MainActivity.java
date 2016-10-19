@@ -20,6 +20,8 @@ import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -72,33 +74,39 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
+        super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-            Log.d("Test", "mCurrentPhotoPath = " + mCurrentPhotoPath);
+            if (data != null) {
+                mCurrentPhotoPath = String.valueOf(data.getData());
+            }
 
-//            Uri imageUri = Uri.fromFile(new File(mCurrentPhotoPath));
-//            startCropImageActivity(imageUri);
-//            resizeImage();
+//            File imageFile = new File(mCurrentPhotoPath);
+//            Bitmap imageBitmap = decodeFile(imageFile);
+//            Log.d("Test", "After decodeFile() Width: " + imageBitmap.getWidth() + " ,Height: " + imageBitmap.getHeight());
 
+            Uri uri = Uri.parse(mCurrentPhotoPath);
+            Uri imageUri = Uri.fromFile(new File(uri.getPath()));
+            startCropImageActivity(imageUri);
         }
+
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
                 Uri resultUri = result.getUri();
+                if (resultUri != null) {
+                    Log.d("Test", "resultUri: " + String.valueOf(resultUri) + "; path: " + resultUri.getPath());
+
+                    File imageFile = new File(resultUri.getPath());
+                    Bitmap imageBitmap = decodeFile(imageFile);
+                    Log.d("Test", "After decodeFile() Width: " + imageBitmap.getWidth() + ", Height: " + imageBitmap.getHeight());
+
+                }
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
             }
         }
 
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    private void startCropImageActivity(Uri imageUri) {
-        CropImage.activity(imageUri)
-                .setGuidelines(CropImageView.Guidelines.ON)
-                .setMultiTouchEnabled(true)
-                .start(this);
     }
 
     private void dispatchTakePictureIntent() {
@@ -111,37 +119,42 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
                 Log.e("Error", "Error occurred while creating the File");
             }
             if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(this,
-                        "ua.com.sober.getwords.fileprovider",
-                        photoFile);
+                Uri photoURI = FileProvider
+                        .getUriForFile(this, "ua.com.sober.getwords.fileprovider", photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
 
                 // Fix FATAL EXCEPTION: java.lang.SecurityException:
                 // Permission Denial: opening provider android.support.v4.content.FileProvider...
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    takePictureIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                    ClipData clip = ClipData.newUri(getContentResolver(), "A photo", photoURI);
-                    takePictureIntent.setClipData(clip);
-                    takePictureIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                } else {
-                    List<ResolveInfo> resInfoList = getPackageManager()
-                            .queryIntentActivities(takePictureIntent, PackageManager.MATCH_DEFAULT_ONLY);
+                Intent fixIntent = fixTakePictureIntent(takePictureIntent, photoURI);
 
-                    for (ResolveInfo resolveInfo : resInfoList) {
-                        String packageName = resolveInfo.activityInfo.packageName;
-                        grantUriPermission(packageName, photoURI, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                    }
-                }
-                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+                startActivityForResult(fixIntent, REQUEST_TAKE_PHOTO);
             }
         }
     }
 
+    private Intent fixTakePictureIntent(Intent takePictureIntent, Uri photoURI) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            takePictureIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            ClipData clip = ClipData.newUri(getContentResolver(), "A photo", photoURI);
+            takePictureIntent.setClipData(clip);
+            takePictureIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        } else {
+            List<ResolveInfo> resInfoList = getPackageManager()
+                    .queryIntentActivities(takePictureIntent, PackageManager.MATCH_DEFAULT_ONLY);
+
+            for (ResolveInfo resolveInfo : resInfoList) {
+                String packageName = resolveInfo.activityInfo.packageName;
+                grantUriPermission(packageName, photoURI, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            }
+        }
+        return takePictureIntent;
+    }
+
     private File createImageFile() throws IOException {
         // Create an image file name
-//        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "image_for_parsing";
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
@@ -149,33 +162,46 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
                 storageDir      /* directory */
         );
 
-        // Save a file: path for use with ACTION_VIEW intents
+        // Save a file path
         mCurrentPhotoPath = "file:" + image.getAbsolutePath();
         return image;
     }
 
-    private void resizeImage() {
-        // Set max returned dimensions
-        int targetW = 2600;
-        int targetH = 2600;
+    private Bitmap decodeFile(File file) {
+        try {
+            // Decode image size
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeStream(new FileInputStream(file), null, options);
 
-        // Get the dimensions of the bitmap
-        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-        bmOptions.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-        int photoW = bmOptions.outWidth;
-        int photoH = bmOptions.outHeight;
+            // The new size we want to scale to
+            final int MAX_IMG_SIZE = 2600;
 
-        // Determine how much to scale down the image
-        int scaleFactor = Math.min(photoW / targetW, photoH / targetH);
+            // Find the correct scale value. It should be the power of 2.
+            int scale = 1;
+            int tmpWidth = options.outWidth;
+            int tmpHeight = options.outHeight;
+            while (tmpWidth > MAX_IMG_SIZE || tmpHeight > MAX_IMG_SIZE) {
+                tmpWidth /= 2;
+                tmpHeight /= 2;
+                scale *= 2;
+            }
 
-        // Decode the image file into a Bitmap sized to fill the View
-        bmOptions.inJustDecodeBounds = false;
-        bmOptions.inSampleSize = scaleFactor;
-//        bmOptions.inPurgeable = true;
+            // Decode with inSampleSize
+            BitmapFactory.Options options1 = new BitmapFactory.Options();
+            options1.inSampleSize = scale;
+            return BitmapFactory.decodeStream(new FileInputStream(file), null, options1);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
-        Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-        Log.d("Test", "Width: " + bitmap.getWidth() + " ,Height: " + bitmap.getHeight());
+    private void startCropImageActivity(Uri imageUri) {
+        CropImage.activity(imageUri)
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .setRequestedSize(2600, 2600, CropImageView.RequestSizeOptions.RESIZE_INSIDE)
+                .start(this);
     }
 
 }

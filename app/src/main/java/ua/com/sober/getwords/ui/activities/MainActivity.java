@@ -83,10 +83,11 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
 
 //            File imageFile = new File(mCurrentPhotoPath);
 //            Bitmap imageBitmap = decodeFile(imageFile);
-//            Log.d("Test", "After decodeFile() Width: " + imageBitmap.getWidth() + " ,Height: " + imageBitmap.getHeight());
+//            if (imageBitmap != null) {
+//                Log.d("Test", "After decodeFile(): Width = " + imageBitmap.getWidth() + " ,Height = " + imageBitmap.getHeight());
+//            }
 
-            Uri uri = Uri.parse(mCurrentPhotoPath);
-            Uri imageUri = Uri.fromFile(new File(uri.getPath()));
+            Uri imageUri = Uri.fromFile(new File(mCurrentPhotoPath));
             startCropImageActivity(imageUri);
         }
 
@@ -95,12 +96,15 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
             if (resultCode == RESULT_OK) {
                 Uri resultUri = result.getUri();
                 if (resultUri != null) {
-                    Log.d("Test", "resultUri: " + String.valueOf(resultUri) + "; path: " + resultUri.getPath());
-
+                    Log.d("Test", "Cropped file path: " + resultUri.getPath());
                     File imageFile = new File(resultUri.getPath());
-                    Bitmap imageBitmap = decodeFile(imageFile);
-                    Log.d("Test", "After decodeFile() Width: " + imageBitmap.getWidth() + ", Height: " + imageBitmap.getHeight());
-
+                    Bitmap imageBitmap = null;
+                    try {
+                        imageBitmap = BitmapFactory.decodeStream(new FileInputStream(imageFile));
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    Log.d("Test", "Crop result: Width = " + imageBitmap.getWidth() + " ,Height = " + imageBitmap.getHeight());
                 }
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
@@ -163,8 +167,15 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
         );
 
         // Save a file path
-        mCurrentPhotoPath = "file:" + image.getAbsolutePath();
+        mCurrentPhotoPath = image.getAbsolutePath();
         return image;
+    }
+
+    private void startCropImageActivity(Uri imageUri) {
+        CropImage.activity(imageUri)
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .setRequestedSize(2600, 2600, CropImageView.RequestSizeOptions.RESIZE_INSIDE)
+                .start(this);
     }
 
     private Bitmap decodeFile(File file) {
@@ -195,13 +206,6 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
             e.printStackTrace();
         }
         return null;
-    }
-
-    private void startCropImageActivity(Uri imageUri) {
-        CropImage.activity(imageUri)
-                .setGuidelines(CropImageView.Guidelines.ON)
-                .setRequestedSize(2600, 2600, CropImageView.RequestSizeOptions.RESIZE_INSIDE)
-                .start(this);
     }
 
 }

@@ -21,7 +21,7 @@ public interface OcrApiService {
     Call<OcrApiResponse> parseImage(@Part("apikey") RequestBody apikey,
                                     @Part("language") RequestBody language,
                                     @Part("isOverlayRequired") RequestBody isOverlayRequired,
-                                    @Part MultipartBody.Part file); //Each image dimension must be between 40 and 2600 pixels.
+                                    @Part MultipartBody.Part file);
 
     class Factory {
         public static OcrApiService create() {

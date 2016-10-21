@@ -11,22 +11,11 @@
         android:layout_centerHorizontal="true" />
 
     <Button
-        android:text="Test Camera"
+        android:text="Load Image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/button_load_image"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/button_test_cam"
-        android:layout_alignLeft="@+id/button_test_gall"
-        android:layout_alignStart="@+id/button_test_gall" />
-
-    <Button
-        android:text="Test Gallery"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button_test_gall"
-        android:layout_above="@+id/button_test_cam"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 

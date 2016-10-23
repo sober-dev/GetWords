@@ -1,7 +1,8 @@
 package ua.com.sober.getwords.mvp.models.orm;
 
-import com.j256.ormlite.field.DataType;
+import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.util.Date;
@@ -13,19 +14,75 @@ import java.util.Date;
 @DatabaseTable(tableName = "groups")
 public class Group {
 
-    Group() {
-    }
-
     @DatabaseField(generatedId = true)
     private int id;
 
-    @DatabaseField(canBeNull = false, dataType = DataType.STRING)
+    @DatabaseField(canBeNull = false)
     private String name;
 
-    @DatabaseField(dataType = DataType.DATE)
+    @DatabaseField()
     private Date lastEditDate;
 
-    @DatabaseField(dataType = DataType.INTEGER)
+    @DatabaseField()
     private int status;
+
+    @ForeignCollectionField()
+    private ForeignCollection<Word> words;
+
+
+    public Group() {
+    }
+
+    public Group(String name) {
+        this.name = name;
+    }
+
+    public Group(String name, Date lastEditDate) {
+        this.name = name;
+        this.lastEditDate = lastEditDate;
+    }
+
+    public Group(String name, Date lastEditDate, int status) {
+        this.name = name;
+        this.lastEditDate = lastEditDate;
+        this.status = status;
+    }
+
+
+    public int getId() {
+        return id;
+    }
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
+    public Date getLastEditDate() {
+        return lastEditDate;
+    }
+
+    public void setLastEditDate(Date lastEditDate) {
+        this.lastEditDate = lastEditDate;
+    }
+
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+
+    public ForeignCollection<Word> getWords() {
+        return words;
+    }
 
 }

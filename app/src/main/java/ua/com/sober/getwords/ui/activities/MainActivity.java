@@ -21,6 +21,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 import ua.com.sober.getwords.R;
+import ua.com.sober.getwords.mvp.models.HelperFactory;
+import ua.com.sober.getwords.mvp.models.orm.Group;
+import ua.com.sober.getwords.mvp.models.orm.Translation;
+import ua.com.sober.getwords.mvp.models.orm.Word;
 import ua.com.sober.getwords.mvp.presenters.MainPresenter;
 import ua.com.sober.getwords.mvp.views.MainView;
 
@@ -44,6 +48,18 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
                 onSelectImageClick(view);
             }
         });
+
+        findViewById(R.id.button_db_test).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    testSaveResult();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
     }
 
     @NonNull
@@ -141,6 +157,32 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void testSaveResult() throws Exception {
+        Group group = new Group("Group1");
+        HelperFactory.getHelper().getGroups().create(group);
+
+
+        Word word1 = new Word("world", group);
+        HelperFactory.getHelper().getWords().create(word1);
+
+        Translation translation1 = new Translation("мир", word1);
+        HelperFactory.getHelper().getTranslations().create(translation1);
+
+        Translation translation2 = new Translation("вселенная", word1);
+        HelperFactory.getHelper().getTranslations().create(translation2);
+
+
+        Word word2 = new Word("house", group);
+        HelperFactory.getHelper().getWords().create(word2);
+
+        Translation translation3 = new Translation("дом", word2);
+        HelperFactory.getHelper().getTranslations().create(translation3);
+
+        Translation translation4 = new Translation("сооружение", word2);
+        HelperFactory.getHelper().getTranslations().create(translation4);
+
     }
 
 }

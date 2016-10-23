@@ -1,6 +1,5 @@
 package ua.com.sober.getwords.mvp.models.orm;
 
-import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -11,19 +10,62 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "translations")
 public class Translation {
 
-    Translation() {
-    }
-
     @DatabaseField(generatedId = true)
     private int id;
 
-    @DatabaseField(canBeNull = false, foreign = true)
+    @DatabaseField(canBeNull = false)
+    private String translation;
+
+    @DatabaseField()
+    private int rating;
+
+    @DatabaseField(foreign = true, foreignAutoRefresh = true)
     private Word word;
 
-    @DatabaseField(dataType = DataType.STRING)
-    private String text;
 
-    @DatabaseField(dataType = DataType.INTEGER)
-    private int rating;
+    public Translation() {
+    }
+
+    public Translation(String translation) {
+        this.translation = translation;
+    }
+
+    public Translation(String translation, Word word) {
+        this.translation = translation;
+        this.word = word;
+    }
+
+    public Translation(String translation, int rating, Word word) {
+        this.translation = translation;
+        this.rating = rating;
+        this.word = word;
+    }
+
+
+    public String getTranslation() {
+        return translation;
+    }
+
+    public void setTranslation(String translation) {
+        this.translation = translation;
+    }
+
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+
+    public Word getWord() {
+        return word;
+    }
+
+    public void setWord(Word word) {
+        this.word = word;
+    }
 
 }

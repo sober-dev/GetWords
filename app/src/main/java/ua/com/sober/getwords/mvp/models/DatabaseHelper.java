@@ -32,16 +32,16 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private WordDao words = null;
     private TranslationDao translations = null;
 
-    private DatabaseHelper(Context context) {
+    public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    public static synchronized DatabaseHelper getInstance(Context context) {
-        if (helper == null) {
-            helper = new DatabaseHelper(context);
-        }
-        return helper;
-    }
+//    public static synchronized DatabaseHelper getInstance(Context context) {
+//        if (helper == null) {
+//            helper = new DatabaseHelper(context);
+//        }
+//        return helper;
+//    }
 
     @Override
     public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource) {

@@ -1,5 +1,6 @@
 package ua.com.sober.getwords.mvp.models.ms;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Namespace;
@@ -90,6 +91,12 @@ public class GetTranslationsArrayRequest {
     }
 
 
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
+    }
+
+
     public static class Texts {
 
         @ElementList(name = "string", entry = "string", inline = true)
@@ -102,6 +109,12 @@ public class GetTranslationsArrayRequest {
 
         public void setTexts(List<StringWithNamespace> texts) {
             this.texts = texts;
+        }
+
+
+        @Override
+        public String toString() {
+            return ToStringBuilder.reflectionToString(this);
         }
 
     }
@@ -186,6 +199,12 @@ public class GetTranslationsArrayRequest {
             this.user = user;
         }
 
+
+        @Override
+        public String toString() {
+            return ToStringBuilder.reflectionToString(this);
+        }
+
     }
 
     @Root(name = "string")
@@ -207,6 +226,12 @@ public class GetTranslationsArrayRequest {
 
         public void setString(String string) {
             this.string = string;
+        }
+
+
+        @Override
+        public String toString() {
+            return ToStringBuilder.reflectionToString(this);
         }
 
     }

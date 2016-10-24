@@ -17,6 +17,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    // Api keys
     buildTypes.each {
         it.buildConfigField 'String', 'OCR_API_KEY', OcrApiKey
         it.buildConfigField 'String', 'MS_API_CLIENT_ID', MsApiClientId

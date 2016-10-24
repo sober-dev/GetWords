@@ -1,5 +1,6 @@
 package ua.com.sober.getwords;
 
+import com.j256.ormlite.dao.CloseableIterator;
 import com.j256.ormlite.dao.ForeignCollection;
 
 import org.junit.Test;
@@ -28,7 +29,7 @@ import ua.com.sober.getwords.mvp.models.orm.Word;
 public class OrmUnitTest {
 
     @Test
-    public void dataRetentionTest() throws SQLException, IOException {
+    public void dataRetentionTest() throws SQLException {
         Group group = new Group("Group1");
         HelperFactory.getHelper().getGroupDao().create(group);
 
@@ -53,41 +54,45 @@ public class OrmUnitTest {
 
             ForeignCollection<Word> wordCollection = g.getWords();
 
-            assertNotNull(wordCollection);
-            assertFalse(wordCollection.isEmpty());
+//            assertNotNull(wordCollection);
+//            assertFalse(wordCollection.isEmpty());
+//
+//            for (Word w : wordCollection) {
+//                System.out.println(w.toString());
+//
+//                ForeignCollection<Translation> translationCollection = w.getTranslations();
+//
+//                assertNotNull(translationCollection);
+//                assertFalse(translationCollection.isEmpty());
+//
+//                for (Translation t : translationCollection) {
+//                    System.out.println(t.toString());
+//                }
+//            }
 
-            for (Word w : wordCollection) {
-                System.out.println(w.toString());
+            CloseableIterator<Word> wordIterator = wordCollection.closeableIterator();
+            try {
+                assertTrue(wordIterator.hasNext());
+                while (wordIterator.hasNext()) {
+                    Word w = wordIterator.next();
+                    System.out.println(w.toString());
 
-                ForeignCollection<Translation> translationCollection = w.getTranslations();
+                    ForeignCollection<Translation> translationCollection = w.getTranslations();
 
-                assertNotNull(translationCollection);
-                assertFalse(translationCollection.isEmpty());
+                    assertNotNull(translationCollection);
+                    assertFalse(translationCollection.isEmpty());
 
-                for (Translation t : translationCollection) {
-                    System.out.println(t.toString());
+                    for (Translation t : translationCollection) {
+                        System.out.println(t.toString());
+                    }
+                }
+            } finally {
+                try {
+                    wordIterator.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
-//            CloseableIterator<Word> wordIterator = wordCollection.closeableIterator();
-//            try {
-//                assertTrue(wordIterator.hasNext());
-//                while (wordIterator.hasNext()) {
-//                    Word w = wordIterator.next();
-//                    System.out.println(w.toString());
-//
-//                    ForeignCollection<Translation> translationCollection = w.getTranslations();
-//
-//                    assertNotNull(translationCollection);
-//                    assertFalse(translationCollection.isEmpty());
-//
-//                    for (Translation t : translationCollection) {
-//                        System.out.println(t.toString());
-//                    }
-//                }
-//            } finally {
-//                wordIterator.close();
-//            }
         }
-
     }
 }

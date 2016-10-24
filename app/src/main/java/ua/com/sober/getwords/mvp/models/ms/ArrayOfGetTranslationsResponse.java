@@ -1,5 +1,6 @@
 package ua.com.sober.getwords.mvp.models.ms;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
@@ -28,13 +29,7 @@ public class ArrayOfGetTranslationsResponse {
 
     @Override
     public String toString() {
-        String listString = "ArrayOfGetTranslationsResponse:\n\n";
-
-        for (GetTranslationsResponse getTranslationsResponse : this.getTranslationsResponse) {
-            listString += getTranslationsResponse.toString();
-        }
-
-        return listString;
+        return ToStringBuilder.reflectionToString(this);
     }
 
 
@@ -79,10 +74,7 @@ public class ArrayOfGetTranslationsResponse {
 
         @Override
         public String toString() {
-            return "GetTranslationsResponse:\n\t" +
-                    "From = " + from +
-                    ", State = " + state +
-                    ", Translations:\n" + translations.toString() + "\n";
+            return ToStringBuilder.reflectionToString(this);
         }
 
     }
@@ -105,13 +97,7 @@ public class ArrayOfGetTranslationsResponse {
 
         @Override
         public String toString() {
-            String listString = "";
-
-            for (TranslationMatch translationMatch : this.translationMatch) {
-                listString += "TranslationMatch:\n\t" + translationMatch.toString();
-            }
-
-            return listString;
+            return ToStringBuilder.reflectionToString(this);
         }
 
     }
@@ -194,12 +180,7 @@ public class ArrayOfGetTranslationsResponse {
 
         @Override
         public String toString() {
-            return "Count = " + count +
-                    ", Error = " + error +
-                    ", MatchDegree = " + matchDegree +
-                    ", Rating = " + rating +
-                    ", MatchedOriginalText = " + matchedOriginalText +
-                    ", TranslatedText = " + translatedText + " \n";
+            return ToStringBuilder.reflectionToString(this);
         }
 
     }

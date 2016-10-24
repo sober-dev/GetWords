@@ -3,6 +3,8 @@ package ua.com.sober.getwords.mvp.models.ms;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 /**
  * Created by dmitry on 10/7/16.
  */
@@ -64,11 +66,7 @@ public class MicrosoftToken {
 
     @Override
     public String toString() {
-        return "MicrosoftToken {" +
-                " accessToken = " + accessToken +
-                ", expiresIn = " + expiresIn +
-                ", scope = " + scope +
-                ", tokenType = " + tokenType + " }";
+        return ToStringBuilder.reflectionToString(this);
     }
 
 }

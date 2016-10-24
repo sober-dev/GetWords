@@ -5,6 +5,8 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.util.Date;
 
 /**
@@ -83,6 +85,12 @@ public class Group {
 
     public ForeignCollection<Word> getWords() {
         return words;
+    }
+
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 
 }

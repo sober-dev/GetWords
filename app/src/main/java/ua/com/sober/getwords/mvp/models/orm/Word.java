@@ -1,8 +1,11 @@
 package ua.com.sober.getwords.mvp.models.orm;
 
+import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
+
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.Collection;
 
@@ -25,8 +28,8 @@ public class Word {
     @DatabaseField(foreign = true, foreignAutoRefresh = true)
     private Group group;
 
-    @ForeignCollectionField()
-    private Collection<Translation> translations;
+    @ForeignCollectionField(eager = true)
+    private ForeignCollection<Translation> translations;
 
 
     public Word() {
@@ -80,8 +83,14 @@ public class Word {
     }
 
 
-    public Collection<Translation> getTranslations() {
+    public ForeignCollection<Translation> getTranslations() {
         return translations;
+    }
+
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 
 }

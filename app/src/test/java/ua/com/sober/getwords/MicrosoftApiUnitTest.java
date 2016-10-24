@@ -1,9 +1,10 @@
 package ua.com.sober.getwords;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,7 +21,7 @@ import ua.com.sober.getwords.mvp.models.ms.GetTranslationsArrayRequest;
  * Created by Dmitry on 14.10.2016.
  */
 
-public class MicrosoftApiTest {
+public class MicrosoftApiUnitTest {
     private final CountDownLatch latch = new CountDownLatch(1);
     private MicrosoftTranslatorApiService service;
     private GetTranslationsArrayRequest request;
@@ -59,7 +60,7 @@ public class MicrosoftApiTest {
 
     @Test
     public void testMSApi() throws InterruptedException {
-        Assert.assertNotNull(service);
+        assertNotNull(service);
         Call<ArrayOfGetTranslationsResponse> call = service.getTranslationsArray(request);
         call.enqueue(new Callback<ArrayOfGetTranslationsResponse>() {
             @Override
@@ -78,7 +79,7 @@ public class MicrosoftApiTest {
             }
         });
         latch.await();
-        Assert.assertNotNull(result);
+        assertNotNull(result);
         System.out.println(result.toString());
     }
 

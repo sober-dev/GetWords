@@ -3,6 +3,8 @@ package ua.com.sober.getwords.mvp.models.orm;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 /**
  * Created by Dmitry on 22.10.2016.
  */
@@ -66,6 +68,12 @@ public class Translation {
 
     public void setWord(Word word) {
         this.word = word;
+    }
+
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 
 }

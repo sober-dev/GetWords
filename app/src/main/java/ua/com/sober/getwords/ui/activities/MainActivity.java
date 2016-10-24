@@ -161,27 +161,27 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
 
     public void testSaveResult() throws Exception {
         Group group = new Group("Group1");
-        HelperFactory.getHelper().getGroups().create(group);
+        HelperFactory.getHelper().getGroupDao().create(group);
 
 
         Word word1 = new Word("world", group);
-        HelperFactory.getHelper().getWords().create(word1);
+        HelperFactory.getHelper().getWordDao().create(word1);
 
         Translation translation1 = new Translation("мир", word1);
-        HelperFactory.getHelper().getTranslations().create(translation1);
+        HelperFactory.getHelper().getTranslationDao().create(translation1);
 
         Translation translation2 = new Translation("вселенная", word1);
-        HelperFactory.getHelper().getTranslations().create(translation2);
+        HelperFactory.getHelper().getTranslationDao().create(translation2);
 
 
         Word word2 = new Word("house", group);
-        HelperFactory.getHelper().getWords().create(word2);
+        HelperFactory.getHelper().getWordDao().create(word2);
 
         Translation translation3 = new Translation("дом", word2);
-        HelperFactory.getHelper().getTranslations().create(translation3);
+        HelperFactory.getHelper().getTranslationDao().create(translation3);
 
         Translation translation4 = new Translation("сооружение", word2);
-        HelperFactory.getHelper().getTranslations().create(translation4);
+        HelperFactory.getHelper().getTranslationDao().create(translation4);
 
     }
 

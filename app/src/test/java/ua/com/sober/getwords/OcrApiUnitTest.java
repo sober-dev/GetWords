@@ -1,9 +1,10 @@
 package ua.com.sober.getwords;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 import java.io.File;
 import java.util.concurrent.CountDownLatch;
@@ -21,7 +22,7 @@ import ua.com.sober.getwords.mvp.models.ocr.OcrApiResponse;
  * Created by Dmitry on 16.10.2016.
  */
 
-public class OcrApiTest {
+public class OcrApiUnitTest {
     private final CountDownLatch latch = new CountDownLatch(1);
     private OcrApiService service;
     private OcrApiResponse result;
@@ -35,8 +36,8 @@ public class OcrApiTest {
 
     @Test
     public void testOcrApi() throws InterruptedException {
-        Assert.assertNotNull(service);
-        Assert.assertFalse(file.length() == 0);
+        assertNotNull(service);
+        assertFalse(file.length() == 0);
 
 //        Response parts
         RequestBody apikey = RequestBody.create(MediaType.parse("text/plain"), BuildConfig.OCR_API_KEY);
@@ -63,7 +64,7 @@ public class OcrApiTest {
             }
         });
         latch.await();
-        Assert.assertNotNull(result);
+        assertNotNull(result);
         System.out.println(result.toString());
     }
 

@@ -26,11 +26,11 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private static final String TAG = DatabaseHelper.class.getSimpleName();
     private static final String DATABASE_NAME = "getwords.db";
     private static final int DATABASE_VERSION = 1;
-    private static DatabaseHelper helper;
+//    private static DatabaseHelper helper;
 
-    private GroupDao groups = null;
-    private WordDao words = null;
-    private TranslationDao translations = null;
+    private GroupDao groupDao = null;
+    private WordDao wordDao = null;
+    private TranslationDao translationDao = null;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -71,32 +71,32 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         }
     }
 
-    public GroupDao getGroups() throws SQLException {
-        if (groups == null) {
-            groups = new GroupDao(getConnectionSource(), Group.class);
+    public GroupDao getGroupDao() throws SQLException {
+        if (groupDao == null) {
+            groupDao = new GroupDao(getConnectionSource(), Group.class);
         }
-        return groups;
+        return groupDao;
     }
 
-    public WordDao getWords() throws SQLException {
-        if (words == null) {
-            words = new WordDao(getConnectionSource(), Word.class);
+    public WordDao getWordDao() throws SQLException {
+        if (wordDao == null) {
+            wordDao = new WordDao(getConnectionSource(), Word.class);
         }
-        return words;
+        return wordDao;
     }
 
-    public TranslationDao getTranslations() throws SQLException {
-        if (translations == null) {
-            translations = new TranslationDao(getConnectionSource(), Translation.class);
+    public TranslationDao getTranslationDao() throws SQLException {
+        if (translationDao == null) {
+            translationDao = new TranslationDao(getConnectionSource(), Translation.class);
         }
-        return translations;
+        return translationDao;
     }
 
     @Override
     public void close() {
         super.close();
-        groups = null;
-        words = null;
-        translations = null;
+        groupDao = null;
+        wordDao = null;
+        translationDao = null;
     }
 }

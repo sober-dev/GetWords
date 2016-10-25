@@ -9,4 +9,7 @@ import ua.com.sober.getwords.mvp.views.MainView;
  */
 public class MainPresenter extends MvpBasePresenter<MainView> {
 
+    public void onGroupClicked() {}
+
+    public void onAddNewWordsClicked() {}
 }

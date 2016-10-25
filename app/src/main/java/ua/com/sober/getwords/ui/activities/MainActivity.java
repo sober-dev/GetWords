@@ -15,7 +15,10 @@ import com.hannesdorfmann.mosby.mvp.MvpActivity;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.util.List;
+
 import ua.com.sober.getwords.R;
+import ua.com.sober.getwords.mvp.models.orm.Group;
 import ua.com.sober.getwords.mvp.presenters.MainPresenter;
 import ua.com.sober.getwords.mvp.views.MainView;
 
@@ -123,4 +126,18 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
                 .start(this);
     }
 
+    @Override
+    public void showGroups(List<Group> groups) {
+
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void showEmpty() {
+
+    }
 }

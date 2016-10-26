@@ -2,6 +2,11 @@ package ua.com.sober.getwords.mvp.presenters;
 
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
 
+import java.sql.SQLException;
+import java.util.List;
+
+import ua.com.sober.getwords.mvp.models.HelperFactory;
+import ua.com.sober.getwords.mvp.models.orm.Group;
 import ua.com.sober.getwords.mvp.views.MainView;
 
 /**
@@ -9,7 +14,27 @@ import ua.com.sober.getwords.mvp.views.MainView;
  */
 public class MainPresenter extends MvpBasePresenter<MainView> {
 
-    public void onGroupClicked() {}
+    public void loadGroups() {
+        getView().showLoading();
 
-    public void onAddNewWordsClicked() {}
+        // Need async loader
+        try {
+            List<Group> groups = HelperFactory.getHelper().getGroupDao().queryForAll();
+            if (isViewAttached()) {
+                if (groups.isEmpty()) {
+                    getView().showEmpty();
+                } else {
+                    getView().showGroups(groups);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void onGroupClicked() {
+    }
+
+    public void onAddNewWordsClicked() {
+    }
 }

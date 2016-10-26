@@ -21,9 +21,11 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 import org.lucasr.twowayview.ItemClickSupport;
 import org.lucasr.twowayview.ItemClickSupport.OnItemClickListener;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import ua.com.sober.getwords.R;
+import ua.com.sober.getwords.mvp.models.HelperFactory;
 import ua.com.sober.getwords.mvp.models.orm.Group;
 import ua.com.sober.getwords.mvp.presenters.MainPresenter;
 import ua.com.sober.getwords.mvp.views.MainView;
@@ -51,6 +53,7 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
             }
         });
 
+        presenter.loadGroups();
     }
 
     @NonNull
@@ -135,7 +138,7 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
     }
 
     @Override
-    public void showGroups(List<Group> groups) {
+    public void showGroups(final List<Group> groups) {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.groups_recycler_view);
 
         // use this setting to improve performance if you know that changes
@@ -145,23 +148,26 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         recyclerView.setAdapter(new GroupsAdapter(groups));
 
-        final ItemClickSupport itemClickSupport = ItemClickSupport.addTo(recyclerView);
-
-        itemClickSupport.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(RecyclerView parent, View view, int position, long id) {
-//                Toast.makeText()
-            }
-        });
+//        final ItemClickSupport itemClickSupport = ItemClickSupport.addTo(recyclerView);
+//
+//        itemClickSupport.setOnItemClickListener(new OnItemClickListener() {
+//            @Override
+//            public void onItemClick(RecyclerView parent, View view, int position, long id) {
+//                Log.d(TAG, "onItemClick on position: " + position +
+//                        "; Group id: " + groups.get(position).getId() +
+//                        "; Group name: " + groups.get(position).getName()
+//                );
+//            }
+//        });
     }
 
     @Override
     public void showLoading() {
-
+        Toast.makeText(this, "Loading groups...", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void showEmpty() {
-
+        Toast.makeText(this, "No groups.", Toast.LENGTH_SHORT).show();
     }
 }

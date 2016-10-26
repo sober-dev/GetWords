@@ -7,6 +7,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -15,12 +18,16 @@ import com.hannesdorfmann.mosby.mvp.MvpActivity;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import org.lucasr.twowayview.ItemClickSupport;
+import org.lucasr.twowayview.ItemClickSupport.OnItemClickListener;
+
 import java.util.List;
 
 import ua.com.sober.getwords.R;
 import ua.com.sober.getwords.mvp.models.orm.Group;
 import ua.com.sober.getwords.mvp.presenters.MainPresenter;
 import ua.com.sober.getwords.mvp.views.MainView;
+import ua.com.sober.getwords.ui.adapters.GroupsAdapter;
 
 /**
  * Created by Dmitry on 14.10.2016.
@@ -36,7 +43,8 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        findViewById(R.id.button_load_image).setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton addNewWordsFab = (FloatingActionButton) findViewById(R.id.add_new_words_fab);
+        addNewWordsFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onSelectImageClick();
@@ -128,7 +136,23 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
 
     @Override
     public void showGroups(List<Group> groups) {
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.groups_recycler_view);
 
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        recyclerView.setHasFixedSize(true);
+
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        recyclerView.setAdapter(new GroupsAdapter(groups));
+
+        final ItemClickSupport itemClickSupport = ItemClickSupport.addTo(recyclerView);
+
+        itemClickSupport.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(RecyclerView parent, View view, int position, long id) {
+//                Toast.makeText()
+            }
+        });
     }
 
     @Override

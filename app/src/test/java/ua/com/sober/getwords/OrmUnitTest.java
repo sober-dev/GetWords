@@ -54,22 +54,6 @@ public class OrmUnitTest {
 
             ForeignCollection<Word> wordCollection = g.getWords();
 
-//            assertNotNull(wordCollection);
-//            assertFalse(wordCollection.isEmpty());
-//
-//            for (Word w : wordCollection) {
-//                System.out.println(w.toString());
-//
-//                ForeignCollection<Translation> translationCollection = w.getTranslations();
-//
-//                assertNotNull(translationCollection);
-//                assertFalse(translationCollection.isEmpty());
-//
-//                for (Translation t : translationCollection) {
-//                    System.out.println(t.toString());
-//                }
-//            }
-
             CloseableIterator<Word> wordIterator = wordCollection.closeableIterator();
             try {
                 assertTrue(wordIterator.hasNext());

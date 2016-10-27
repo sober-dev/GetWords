@@ -23,6 +23,7 @@ import java.util.List;
 import ua.com.sober.getwords.R;
 import ua.com.sober.getwords.mvp.models.orm.Group;
 import ua.com.sober.getwords.mvp.presenters.MainPresenter;
+import ua.com.sober.getwords.mvp.presenters.RecyclerItemClickListener;
 import ua.com.sober.getwords.mvp.views.MainView;
 import ua.com.sober.getwords.ui.adapters.GroupsAdapter;
 
@@ -30,7 +31,7 @@ import ua.com.sober.getwords.ui.adapters.GroupsAdapter;
  * Created by Dmitry on 14.10.2016.
  */
 
-public class MainActivity extends MvpActivity<MainView, MainPresenter> implements MainView {
+public class MainActivity extends MvpActivity<MainView, MainPresenter> implements MainView, RecyclerItemClickListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private Uri mCropImageUri;
@@ -134,19 +135,25 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
 
     @Override
     public void showGroups(final List<Group> groups) {
+        GroupsAdapter adapter = new GroupsAdapter(groups);
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.groups_recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        recyclerView.setAdapter(new GroupsAdapter(groups));
+        recyclerView.setAdapter(adapter);
+        adapter.setRecyclerItemClickListener(this);
     }
 
     @Override
     public void showLoading() {
-        Toast.makeText(this, "Loading groups...", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void showEmpty() {
-        Toast.makeText(this, "No groups.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "No groups.", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onItemClickListener(int position) {
+        presenter.onGroupItemClicked(position);
     }
 }

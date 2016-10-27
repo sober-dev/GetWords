@@ -23,6 +23,13 @@ public class MainPresenter extends MvpBasePresenter<MainView> {
             if (isViewAttached()) {
                 if (groups.isEmpty()) {
                     getView().showEmpty();
+
+                    // Test
+                    for (int i = 1; i <= 20; i++) {
+                        Group group = new Group("Group " + i);
+                        HelperFactory.getHelper().getGroupDao().create(group);
+                    }
+
                 } else {
                     getView().showGroups(groups);
                 }

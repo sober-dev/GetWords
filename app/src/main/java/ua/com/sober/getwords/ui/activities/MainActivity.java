@@ -153,6 +153,18 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
     }
 
     @Override
+    public void navigateToGroupScreen(int id) {
+        Intent intent = new Intent(this, GroupActivity.class);
+        intent.putExtra("id", id);
+        startActivity(intent);
+    }
+
+    @Override
+    public void navigateToPickImage() {
+
+    }
+
+    @Override
     public void onItemClickListener(int position) {
         presenter.onGroupItemClicked(position);
     }

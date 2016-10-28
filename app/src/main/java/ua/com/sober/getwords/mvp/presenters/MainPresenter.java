@@ -14,24 +14,33 @@ import ua.com.sober.getwords.mvp.views.MainView;
 /**
  * Created by dmitry on 9/20/16.
  */
+
 public class MainPresenter extends MvpBasePresenter<MainView> {
 
     private static final String TAG = MainPresenter.class.getSimpleName();
+    private List<Group> groups;
 
     public void loadGroups() {
-        if (getView() != null) {
+        if (isViewAttached() && getView() != null) {
             getView().showLoading();
             // Need async loader
             try {
-                List<Group> groups = HelperFactory.getHelper().getGroupDao().queryForAll();
+                groups = HelperFactory.getHelper().getGroupDao().queryForAll();
                 if (isViewAttached()) {
                     if (groups.isEmpty()) {
-                        getView().showEmpty();
+//                        getView().showEmpty();
 
                         // Test
-                        for (int i = 0; i < 20; i++) {
+                        for (int i = 1; i <= 20; i++) {
                             Group group = new Group("Group " + i);
                             HelperFactory.getHelper().getGroupDao().create(group);
+                        }
+
+                        groups = HelperFactory.getHelper().getGroupDao().queryForAll();
+                        if (!groups.isEmpty()) {
+                            getView().showGroups(groups);
+                        } else {
+                            getView().showEmpty();
                         }
 
                     } else {
@@ -45,6 +54,9 @@ public class MainPresenter extends MvpBasePresenter<MainView> {
     }
 
     public void onGroupItemClicked(int position) {
+        if (isViewAttached() && getView() != null) {
+            getView().navigateToGroupScreen(groups.get(position).getId());
+        }
         Log.d(TAG, "Clicked on position: " + position);
     }
 

@@ -16,4 +16,8 @@ public interface MainView extends MvpView {
     void showLoading();
 
     void showEmpty();
+
+    void navigateToGroupScreen(int id);
+
+    void navigateToPickImage();
 }

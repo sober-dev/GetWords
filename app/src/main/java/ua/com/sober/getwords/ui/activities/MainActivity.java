@@ -45,7 +45,7 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
         addNewWordsFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onSelectImageClick();
+                presenter.onAddFabClicked();
             }
         });
 
@@ -92,6 +92,7 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
                 Uri resultUri = result.getUri();
                 if (resultUri != null) {
                     Log.d(TAG, "Cropped file path: " + resultUri.getPath());
+                    presenter.getWordsFromImage(resultUri);
                 }
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
@@ -117,20 +118,9 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
 
     }
 
-    public void onSelectImageClick() {
-        if (CropImage.isExplicitCameraPermissionRequired(this) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requestPermissions(new String[]{Manifest.permission.CAMERA}, CropImage.CAMERA_CAPTURE_PERMISSIONS_REQUEST_CODE);
-        } else {
-            CropImage.startPickImageActivity(this);
-        }
-    }
 
-    private void startCropImageActivity(Uri imageUri) {
-        CropImage.activity(imageUri)
-                .setGuidelines(CropImageView.Guidelines.ON)
-                // Ocr API limit: "Each image dimension must be between 40 and 2600 pixels."
-                .setRequestedSize(2600, 2600, CropImageView.RequestSizeOptions.RESIZE_INSIDE)
-                .start(this);
+    @Override
+    public void showLoading() {
     }
 
     @Override
@@ -144,28 +134,38 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
     }
 
     @Override
-    public void showLoading() {
-    }
-
-    @Override
     public void showEmpty() {
         Toast.makeText(this, "No groups.", Toast.LENGTH_LONG).show();
     }
 
     @Override
-    public void navigateToGroupScreen(int id) {
+    public void navigateToPickImageActivity() {
+        if (CropImage.isExplicitCameraPermissionRequired(this) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(new String[]{Manifest.permission.CAMERA}, CropImage.CAMERA_CAPTURE_PERMISSIONS_REQUEST_CODE);
+        } else {
+            CropImage.startPickImageActivity(this);
+        }
+    }
+
+    @Override
+    public void navigateToGroupActivity(int id) {
         Intent intent = new Intent(this, GroupActivity.class);
         intent.putExtra("id", id);
         startActivity(intent);
     }
 
     @Override
-    public void navigateToPickImage() {
-
-    }
-
-    @Override
     public void onItemClickListener(int position) {
         presenter.onGroupItemClicked(position);
     }
+
+
+    private void startCropImageActivity(Uri imageUri) {
+        CropImage.activity(imageUri)
+                .setGuidelines(CropImageView.Guidelines.ON)
+                // Ocr API limit: "Each image dimension must be between 40 and 2600 pixels."
+                .setRequestedSize(2600, 2600, CropImageView.RequestSizeOptions.RESIZE_INSIDE)
+                .start(this);
+    }
+
 }

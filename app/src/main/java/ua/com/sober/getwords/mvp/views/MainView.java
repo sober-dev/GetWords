@@ -11,13 +11,13 @@ import ua.com.sober.getwords.mvp.models.orm.Group;
  */
 
 public interface MainView extends MvpView {
-    void showGroups(List<Group> groups);
-
     void showLoading();
+
+    void showGroups(List<Group> groups);
 
     void showEmpty();
 
-    void navigateToGroupScreen(int id);
+    void navigateToPickImageActivity();
 
-    void navigateToPickImage();
+    void navigateToGroupActivity(int id);
 }

@@ -23,7 +23,6 @@ import java.util.List;
 import ua.com.sober.getwords.R;
 import ua.com.sober.getwords.mvp.models.orm.Group;
 import ua.com.sober.getwords.mvp.presenters.MainPresenter;
-import ua.com.sober.getwords.mvp.presenters.RecyclerItemClickListener;
 import ua.com.sober.getwords.mvp.views.MainView;
 import ua.com.sober.getwords.ui.adapters.GroupsAdapter;
 
@@ -31,7 +30,7 @@ import ua.com.sober.getwords.ui.adapters.GroupsAdapter;
  * Created by Dmitry on 14.10.2016.
  */
 
-public class MainActivity extends MvpActivity<MainView, MainPresenter> implements MainView, RecyclerItemClickListener {
+public class MainActivity extends MvpActivity<MainView, MainPresenter> implements MainView, GroupsAdapter.RecyclerItemClickListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private Uri mCropImageUri;

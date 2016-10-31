@@ -55,4 +55,6 @@ dependencies {
     compile 'com.theartofdev.edmodo:android-image-cropper:2.3.1'
     // ORM
     compile 'com.j256.ormlite:ormlite-android:5.0'
+    // Run in the background
+    compile 'com.birbit:android-priority-jobqueue:2.0.1'
 }

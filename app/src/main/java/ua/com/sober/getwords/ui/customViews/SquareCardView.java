@@ -1,4 +1,4 @@
-package ua.com.sober.getwords.mvp.views;
+package ua.com.sober.getwords.ui.customViews;
 
 import android.content.Context;
 import android.support.v7.widget.CardView;

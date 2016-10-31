@@ -10,13 +10,16 @@ import java.util.List;
 
 import ua.com.sober.getwords.R;
 import ua.com.sober.getwords.mvp.models.orm.Group;
-import ua.com.sober.getwords.mvp.presenters.RecyclerItemClickListener;
 
 /**
  * Created by dmitry on 10/26/16.
  */
 
 public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupViewHolder> {
+
+    public interface RecyclerItemClickListener {
+        void onItemClickListener(int position);
+    }
 
     private List<Group> groups;
     private RecyclerItemClickListener recyclerItemClickListener;

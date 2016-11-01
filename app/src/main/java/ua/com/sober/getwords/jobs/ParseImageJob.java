@@ -13,8 +13,8 @@ import com.birbit.android.jobqueue.RetryConstraint;
 
 public class ParseImageJob extends Job {
 
-    public ParseImageJob(Params params) {
-        super(params);
+    public ParseImageJob() {
+        super(new Params(Priority.MID));
     }
 
     @Override

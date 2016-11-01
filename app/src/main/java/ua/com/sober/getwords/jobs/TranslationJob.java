@@ -13,8 +13,8 @@ import com.birbit.android.jobqueue.RetryConstraint;
 
 public class TranslationJob extends Job {
 
-    public TranslationJob(Params params) {
-        super(params);
+    public TranslationJob() {
+        super(new Params(Priority.MID));
     }
 
     @Override

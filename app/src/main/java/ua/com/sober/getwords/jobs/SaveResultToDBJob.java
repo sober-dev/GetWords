@@ -13,8 +13,8 @@ import com.birbit.android.jobqueue.RetryConstraint;
 
 public class SaveResultToDBJob extends Job {
 
-    protected SaveResultToDBJob(Params params) {
-        super(params);
+    protected SaveResultToDBJob() {
+        super(new Params(Priority.MID));
     }
 
     @Override

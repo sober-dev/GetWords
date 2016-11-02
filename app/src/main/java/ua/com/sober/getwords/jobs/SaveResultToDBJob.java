@@ -28,12 +28,12 @@ public class SaveResultToDBJob extends Job {
     }
 
     @Override
-    protected RetryConstraint shouldReRunOnThrowable(@NonNull Throwable throwable, int runCount, int maxRunCount) {
-        return null;
+    protected void onCancel(int cancelReason, @Nullable Throwable throwable) {
+
     }
 
     @Override
-    protected void onCancel(int cancelReason, @Nullable Throwable throwable) {
-
+    protected RetryConstraint shouldReRunOnThrowable(@NonNull Throwable throwable, int runCount, int maxRunCount) {
+        return null;
     }
 }

@@ -87,7 +87,7 @@ public class ParseImageJob extends Job {
         try {
             ocrApiResponse = call.execute().body();
         } catch (IOException e) {
-            Log.d(TAG, "Free OCR API DOWN =(");
+            Log.d(TAG, "No response from the ocr server =(");
             e.printStackTrace();
         }
 

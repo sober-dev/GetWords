@@ -15,15 +15,15 @@ import java.util.List;
 public class ArrayOfGetTranslationsResponse {
 
     @ElementList(name = "GetTranslationsResponse", entry = "GetTranslationsResponse", inline = true)
-    private List<GetTranslationsResponse> getTranslationsResponse;
+    private List<GetTranslationsResponse> getTranslationsResponses;
 
 
-    public List<GetTranslationsResponse> getGetTranslationsResponse() {
-        return this.getTranslationsResponse;
+    public List<GetTranslationsResponse> getGetTranslationsResponses() {
+        return this.getTranslationsResponses;
     }
 
-    public void setGetTranslationsResponse(List<GetTranslationsResponse> getTranslationsResponses) {
-        this.getTranslationsResponse = getTranslationsResponses;
+    public void setGetTranslationsResponses(List<GetTranslationsResponse> getTranslationsResponses) {
+        this.getTranslationsResponses = getTranslationsResponses;
     }
 
 

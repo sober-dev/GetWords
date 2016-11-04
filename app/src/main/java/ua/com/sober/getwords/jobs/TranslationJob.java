@@ -42,8 +42,8 @@ public class TranslationJob extends Job {
 
     @Override
     public void onRun() throws Throwable {
-        Log.d(TAG, listOfWords.toString());
-        getVocabularyList(listOfWords);
+        Map<String, List<String>> vocabularyList = getVocabularyList(listOfWords);
+        Log.d(TAG, "Vocabulary list:" + vocabularyList.toString());
     }
 
     @Override
@@ -58,6 +58,7 @@ public class TranslationJob extends Job {
 
     private Map<String, List<String>> getVocabularyList(List<String> strings) {
         Map<String, List<String>> vocabularyList = new LinkedHashMap<>();
+        List<List<String>> allTranslations = new ArrayList<>();
 
         for (List<String> partition : ListUtils.partition(strings, 10)) {
             ArrayOfGetTranslationsResponse response = getTranslationsResponse(partition);
@@ -70,17 +71,26 @@ public class TranslationJob extends Job {
                     // Words
                     for (ArrayOfGetTranslationsResponse.GetTranslationsResponse getTranslationsResponse : getTranslationsResponses) {
 
+                        List<String> translations = new ArrayList<>();
+
                         List<ArrayOfGetTranslationsResponse.TranslationMatch> matches =
                                 getTranslationsResponse.getTranslations().getTranslationMatch();
                         if (!matches.isEmpty()) {
+
                             // Translations
                             for (ArrayOfGetTranslationsResponse.TranslationMatch match : matches) {
-
+                                translations.add(match.getTranslatedText());
                             }
                         }
+
+                        allTranslations.add(translations);
                     }
                 }
             }
+        }
+
+        for (int i = 0; i < strings.size(); i++) {
+            vocabularyList.put(strings.get(i), allTranslations.get(i));
         }
 
         return vocabularyList;

@@ -126,7 +126,7 @@ public class ParseImageJob extends Job {
                     }
                 }
             }
-
+            Log.d(TAG, "Words:" + strings.toString());
             return strings.isEmpty() ? null : strings;
         } else {
             // If an error occurred when parsing the Image

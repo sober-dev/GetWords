@@ -7,14 +7,21 @@ import com.birbit.android.jobqueue.Job;
 import com.birbit.android.jobqueue.Params;
 import com.birbit.android.jobqueue.RetryConstraint;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created by Dmitry on 10/31/2016.
  */
 
 public class SaveResultToDBJob extends Job {
 
-    protected SaveResultToDBJob() {
+    private static final String TAG = SaveResultToDBJob.class.getSimpleName();
+    private Map<String, List<String>> vocabularyList;
+
+    protected SaveResultToDBJob(Map<String, List<String>> vocabularyList) {
         super(new Params(Priority.MID));
+        this.vocabularyList = vocabularyList;
     }
 
     @Override

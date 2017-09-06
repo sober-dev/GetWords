@@ -7,10 +7,6 @@ import com.birbit.android.jobqueue.config.Configuration;
 
 import ua.com.sober.getwords.mvp.models.HelperFactory;
 
-/**
- * Created by Dmitry on 22.10.2016.
- */
-
 public class GetWordsApplication extends Application {
     private static GetWordsApplication instance;
     private JobManager jobManager;

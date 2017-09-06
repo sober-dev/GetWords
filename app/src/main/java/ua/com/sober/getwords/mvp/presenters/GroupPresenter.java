@@ -7,10 +7,6 @@ import java.util.List;
 import ua.com.sober.getwords.mvp.models.orm.Word;
 import ua.com.sober.getwords.mvp.views.GroupView;
 
-/**
- * Created by dmitry on 10/25/16.
- */
-
 public class GroupPresenter extends MvpBasePresenter<GroupView> {
 
     private static final String TAG = GroupPresenter.class.getSimpleName();

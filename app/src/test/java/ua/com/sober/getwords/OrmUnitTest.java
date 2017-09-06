@@ -8,8 +8,6 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
-import static org.junit.Assert.*;
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Arrays;
@@ -20,9 +18,9 @@ import ua.com.sober.getwords.mvp.models.orm.Group;
 import ua.com.sober.getwords.mvp.models.orm.Translation;
 import ua.com.sober.getwords.mvp.models.orm.Word;
 
-/**
- * Created by dmitry on 10/24/16.
- */
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class, sdk = 16)

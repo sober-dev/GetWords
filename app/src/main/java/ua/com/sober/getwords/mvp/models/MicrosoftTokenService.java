@@ -4,27 +4,15 @@ import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
-import ua.com.sober.getwords.mvp.models.ms.MicrosoftToken;
-
-/**
- * Created by dmitry on 10/7/16.
- */
 
 public interface MicrosoftTokenService {
-    String DATAMARKET_OAUTH_URL = "https://datamarket.accesscontrol.windows.net/v2/";
-    String GRANT_TYPE_CLIENT_CREDENTIALS = "client_credentials";
-    String SCOPE_TRANSLATOR = "http://api.microsofttranslator.com";
+    String TOKEN_SERVICE_URL = "https://api.cognitive.microsoft.com/sts/v1.0/";
 
-    @POST("OAuth2-13")
-    @FormUrlEncoded
-    Call<MicrosoftToken> getToken(@Field("grant_type") String grantType,
-                                  @Field("scope") String scope,
-                                  @Field("client_id") String clientId,
-                                  @Field("client_secret") String clientSecret);
+    @POST("issueToken")
+    Call<String> getToken(@Header("Ocp-Apim-Subscription-Key") String key);
 
     class Factory {
         public static MicrosoftTokenService create() {
@@ -36,9 +24,9 @@ public interface MicrosoftTokenService {
                     .build();
 
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(DATAMARKET_OAUTH_URL)
+                    .baseUrl(TOKEN_SERVICE_URL)
                     .client(client)
-                    .addConverterFactory(GsonConverterFactory.create())
+                    .addConverterFactory(ScalarsConverterFactory.create())
                     .build();
             return retrofit.create(MicrosoftTokenService.class);
         }

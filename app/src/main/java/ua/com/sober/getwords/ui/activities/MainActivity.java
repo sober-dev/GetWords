@@ -26,10 +26,6 @@ import ua.com.sober.getwords.mvp.presenters.MainPresenter;
 import ua.com.sober.getwords.mvp.views.MainView;
 import ua.com.sober.getwords.ui.adapters.GroupsAdapter;
 
-/**
- * Created by Dmitry on 14.10.2016.
- */
-
 public class MainActivity extends MvpActivity<MainView, MainPresenter> implements MainView, GroupsAdapter.RecyclerItemClickListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();

@@ -4,8 +4,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 import java.io.File;
 import java.util.concurrent.CountDownLatch;
 
@@ -18,9 +16,8 @@ import retrofit2.Response;
 import ua.com.sober.getwords.mvp.models.OcrApiService;
 import ua.com.sober.getwords.mvp.models.ocr.OcrApiResponse;
 
-/**
- * Created by Dmitry on 16.10.2016.
- */
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class OcrApiUnitTest {
     private final CountDownLatch latch = new CountDownLatch(1);
@@ -31,13 +28,13 @@ public class OcrApiUnitTest {
     @Before
     public void beforeTest() {
         service = OcrApiService.Factory.create();
-        file = new File("src/test/java/ua/com/sober/getwords/ocr_test_img.jpg");
+        file = new File("C:\\Users\\dmitriy.hmel\\Projects\\GetWords\\app\\src\\test\\java\\ua\\com\\sober\\getwords\\ocr_test_img.jpg");
     }
 
     @Test
     public void testOcrApi() throws InterruptedException {
         assertNotNull(service);
-        assertFalse(file.length() == 0);
+        assertTrue(file.length() != 0);
 
 //        Response parts
         RequestBody apikey = RequestBody.create(MediaType.parse("text/plain"), BuildConfig.OCR_API_KEY);

@@ -9,10 +9,6 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.Date;
 
-/**
- * Created by Dmitry on 22.10.2016.
- */
-
 @DatabaseTable(tableName = "groups")
 public class Group {
 

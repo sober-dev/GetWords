@@ -4,10 +4,6 @@ import android.content.Context;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 
-/**
- * Created by Dmitry on 22.10.2016.
- */
-
 public class HelperFactory {
     private static DatabaseHelper databaseHelper;
 

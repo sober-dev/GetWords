@@ -4,8 +4,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
@@ -17,9 +15,7 @@ import ua.com.sober.getwords.mvp.models.MicrosoftTranslatorApiService;
 import ua.com.sober.getwords.mvp.models.ms.ArrayOfGetTranslationsResponse;
 import ua.com.sober.getwords.mvp.models.ms.GetTranslationsArrayRequest;
 
-/**
- * Created by Dmitry on 14.10.2016.
- */
+import static org.junit.Assert.assertNotNull;
 
 public class MicrosoftApiUnitTest {
     private final CountDownLatch latch = new CountDownLatch(1);
@@ -48,6 +44,7 @@ public class MicrosoftApiUnitTest {
         );
 
         texts.setTexts(textsList);
+        options.setIncludeMultipleMTAlternatives(true);
         options.setState(777);
 
         request.setAppId("");

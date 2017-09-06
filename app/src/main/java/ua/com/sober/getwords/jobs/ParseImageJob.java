@@ -22,14 +22,8 @@ import retrofit2.Call;
 import ua.com.sober.getwords.BuildConfig;
 import ua.com.sober.getwords.GetWordsApplication;
 import ua.com.sober.getwords.mvp.models.OcrApiService;
-import ua.com.sober.getwords.mvp.models.ocr.Line;
 import ua.com.sober.getwords.mvp.models.ocr.OcrApiResponse;
-import ua.com.sober.getwords.mvp.models.ocr.ParsedResult;
-import ua.com.sober.getwords.mvp.models.ocr.Word;
-
-/**
- * Created by Dmitry on 10/31/2016.
- */
+import ua.com.sober.getwords.mvp.models.ocr.OcrApiResponse.*;
 
 public class ParseImageJob extends Job {
 
@@ -97,8 +91,8 @@ public class ParseImageJob extends Job {
     private List<String> getWordsFromOcrResponse(OcrApiResponse ocrResponse) {
         List<String> strings = new ArrayList<>();
 
-        if (!ocrResponse.getIsErroredOnProcessing() &&
-                ocrResponse.getOCRExitCode() == 1 &&
+        if (!ocrResponse.isErroredOnProcessing() &&
+                ocrResponse.getOcrExitCode() == 1 &&
                 ocrResponse.getParsedResults() != null &&
                 !ocrResponse.getParsedResults().isEmpty()) {
 

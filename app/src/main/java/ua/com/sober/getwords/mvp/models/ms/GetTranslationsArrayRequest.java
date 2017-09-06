@@ -10,10 +10,6 @@ import org.simpleframework.xml.Text;
 
 import java.util.List;
 
-/**
- * Created by dmitry on 10/3/16.
- */
-
 @Root(name = "GetTranslationsArrayRequest")
 @Order(elements = {"AppId", "From", "Options", "Texts", "To", "MaxTranslations"})
 public class GetTranslationsArrayRequest {
@@ -121,6 +117,10 @@ public class GetTranslationsArrayRequest {
 
     public static class Options {
 
+        @Element(name = "IncludeMultipleMTAlternatives", required = false)
+        @Namespace(reference = "http://schemas.datacontract.org/2004/07/Microsoft.MT.Web.Service.V2")
+        private Boolean includeMultipleMTAlternatives;
+
         @Element(name = "Category", required = false)
         @Namespace(reference = "http://schemas.datacontract.org/2004/07/Microsoft.MT.Web.Service.V2")
         private String category;
@@ -145,6 +145,14 @@ public class GetTranslationsArrayRequest {
         @Namespace(reference = "http://schemas.datacontract.org/2004/07/Microsoft.MT.Web.Service.V2")
         private String user;
 
+
+        public Boolean getIncludeMultipleMTAlternatives() {
+            return includeMultipleMTAlternatives;
+        }
+
+        public void setIncludeMultipleMTAlternatives(Boolean includeMultipleMTAlternatives) {
+            this.includeMultipleMTAlternatives = includeMultipleMTAlternatives;
+        }
 
         public String getCategory() {
             return this.category;

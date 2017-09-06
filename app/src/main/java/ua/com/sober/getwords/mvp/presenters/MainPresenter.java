@@ -15,10 +15,6 @@ import ua.com.sober.getwords.mvp.models.HelperFactory;
 import ua.com.sober.getwords.mvp.models.orm.Group;
 import ua.com.sober.getwords.mvp.views.MainView;
 
-/**
- * Created by dmitry on 9/20/16.
- */
-
 public class MainPresenter extends MvpBasePresenter<MainView> {
 
     private static final String TAG = MainPresenter.class.getSimpleName();

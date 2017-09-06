@@ -6,10 +6,6 @@ import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
 
-/**
- * Created by dmitry on 10/7/16.
- */
-
 public class TokenInterceptor implements Interceptor {
     private final TokenManager tokenManager;
 
@@ -34,7 +30,7 @@ public class TokenInterceptor implements Interceptor {
             authorisedRequest = originalRequest.newBuilder()
                     .addHeader("Authorization", "Bearer" + " " + tokenManager.refreshAccessToken())
                     .build();
-            return chain.proceed(authorisedRequest);
+            response = chain.proceed(authorisedRequest);
         }
         return response;
     }

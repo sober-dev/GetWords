@@ -11,10 +11,6 @@ import java.util.List;
 import ua.com.sober.getwords.R;
 import ua.com.sober.getwords.mvp.models.orm.Group;
 
-/**
- * Created by dmitry on 10/26/16.
- */
-
 public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupViewHolder> {
 
     public interface RecyclerItemClickListener {

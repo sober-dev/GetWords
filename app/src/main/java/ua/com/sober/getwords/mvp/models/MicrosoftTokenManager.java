@@ -3,17 +3,11 @@ package ua.com.sober.getwords.mvp.models;
 import java.io.IOException;
 
 import retrofit2.Call;
-
 import ua.com.sober.getwords.BuildConfig;
-import ua.com.sober.getwords.mvp.models.ms.MicrosoftToken;
-
-/**
- * Created by dmitry on 10/7/16.
- */
 
 public class MicrosoftTokenManager implements TokenManager {
     private static String accessToken = null;
-    private static Long expiresTime = 0L;
+    private static long expirationTime = 0L;
 
     public String getAccessToken() {
         return accessToken;
@@ -21,24 +15,20 @@ public class MicrosoftTokenManager implements TokenManager {
 
     @Override
     public boolean hasAccessToken() {
-        return accessToken != null && (expiresTime - 60000) > System.currentTimeMillis();
+        return accessToken != null && expirationTime > System.currentTimeMillis();
     }
 
     @Override
     public void clearAccessToken() {
         accessToken = null;
-        expiresTime = 0L;
+        expirationTime = 0L;
     }
 
     @Override
     public String refreshAccessToken() {
         MicrosoftTokenService tokenService = MicrosoftTokenService.Factory.create();
-        Call<MicrosoftToken> call = tokenService.getToken(
-                MicrosoftTokenService.GRANT_TYPE_CLIENT_CREDENTIALS,
-                MicrosoftTokenService.SCOPE_TRANSLATOR,
-                BuildConfig.MS_API_CLIENT_ID,
-                BuildConfig.MS_API_CLIENT_SECRET);
-        MicrosoftToken microsoftToken = null;
+        Call<String> call = tokenService.getToken(BuildConfig.MS_SUBSCRIPTION_KEY);
+        String microsoftToken = null;
         try {
             microsoftToken = call.execute().body();
         } catch (IOException e) {
@@ -46,9 +36,9 @@ public class MicrosoftTokenManager implements TokenManager {
         }
 
         if (microsoftToken != null) {
-            Integer expiresIn = microsoftToken.getExpiresIn();
-            expiresTime = (expiresIn * 1000) + System.currentTimeMillis();
-            accessToken = microsoftToken.getAccessToken();
+            long eightMinutes = 480000L;
+            expirationTime = eightMinutes + System.currentTimeMillis();
+            accessToken = microsoftToken;
         }
         return accessToken;
     }

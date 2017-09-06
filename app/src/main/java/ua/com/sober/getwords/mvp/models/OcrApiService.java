@@ -12,9 +12,6 @@ import retrofit2.http.POST;
 import retrofit2.http.Part;
 import ua.com.sober.getwords.mvp.models.ocr.OcrApiResponse;
 
-/**
- * Created by dmitry on 5/17/16.
- */
 public interface OcrApiService {
     @Multipart
     @POST("parse/image")

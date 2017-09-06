@@ -15,10 +15,6 @@ import retrofit2.http.POST;
 import ua.com.sober.getwords.mvp.models.ms.ArrayOfGetTranslationsResponse;
 import ua.com.sober.getwords.mvp.models.ms.GetTranslationsArrayRequest;
 
-/**
- * Created by dmitry on 9/26/16.
- */
-
 public interface MicrosoftTranslatorApiService {
     @POST("GetTranslationsArray")
     Call<ArrayOfGetTranslationsResponse> getTranslationsArray(@Body GetTranslationsArrayRequest body);

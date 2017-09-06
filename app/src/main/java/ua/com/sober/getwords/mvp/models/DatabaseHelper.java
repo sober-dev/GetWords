@@ -17,10 +17,6 @@ import ua.com.sober.getwords.mvp.models.orm.TranslationDao;
 import ua.com.sober.getwords.mvp.models.orm.Word;
 import ua.com.sober.getwords.mvp.models.orm.WordDao;
 
-/**
- * Created by Dmitry on 22.10.2016.
- */
-
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     private static final String TAG = DatabaseHelper.class.getSimpleName();

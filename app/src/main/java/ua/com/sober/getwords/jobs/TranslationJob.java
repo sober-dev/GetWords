@@ -21,10 +21,6 @@ import ua.com.sober.getwords.mvp.models.MicrosoftTranslatorApiService;
 import ua.com.sober.getwords.mvp.models.ms.ArrayOfGetTranslationsResponse;
 import ua.com.sober.getwords.mvp.models.ms.GetTranslationsArrayRequest;
 
-/**
- * Created by Dmitry on 10/31/2016.
- */
-
 public class TranslationJob extends Job {
 
     private static final String TAG = TranslationJob.class.getSimpleName();
@@ -110,6 +106,7 @@ public class TranslationJob extends Job {
             textsList.add(new GetTranslationsArrayRequest.StringWithNamespace(string));
         }
         texts.setTexts(textsList);
+        options.setIncludeMultipleMTAlternatives(true);
 //        options.setState(id);
 
         request.setAppId("");

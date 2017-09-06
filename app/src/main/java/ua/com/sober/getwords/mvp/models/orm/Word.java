@@ -7,12 +7,6 @@ import com.j256.ormlite.table.DatabaseTable;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import java.util.Collection;
-
-/**
- * Created by Dmitry on 22.10.2016.
- */
-
 @DatabaseTable(tableName = "words")
 public class Word {
 

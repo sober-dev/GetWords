@@ -11,10 +11,6 @@ import ua.com.sober.getwords.R;
 import ua.com.sober.getwords.mvp.presenters.GroupPresenter;
 import ua.com.sober.getwords.mvp.views.GroupView;
 
-/**
- * Created by dmitry on 10/25/16.
- */
-
 public class GroupActivity extends MvpActivity<GroupView, GroupPresenter> implements MvpView {
 
     @Override
